@@ -1,10 +1,3 @@
-/*
-	Kathleen Beltramini
-	beltramk@onid.oregonstate.edu
-	CS325-400
-	Project 1
-*/
-
 #include <stdio.h> 
 #include <stdlib.h>
 
@@ -16,7 +9,7 @@ int algo4(int *test_array, int sizeofarray);
 int main(int argc, char **argv) 
 {
 	
-	int array[5]= {2,4,5,1,6};
+	int array[8]= {-2, -3, 4, -1, -2, 1, 5, -3};
 	int sizeofarray = sizeof(array)/sizeof(int);
 	int maxsum;
 	maxsum=algo4(array,sizeofarray);
@@ -26,17 +19,19 @@ int main(int argc, char **argv)
 
 int algo4(int *test_array, int sizeofarray)
 {
+	int max_ending_here;
+	int current_max;
+	max_ending_here = current_max = 0;
 	int i=0;
-	int sum=0;
-	//int array_size = sizeofarray;
-	//printf("size: %d", array_size);
 	while(i<sizeofarray)
 	{
-		//printf("%d ", i);
-		sum = sum + test_array[i];
+		max_ending_here = max_ending_here + test_array[i];
+		if(max_ending_here<0)
+			max_ending_here = 0;
+		if (current_max < max_ending_here)
+			current_max = max_ending_here;
 		i++;
 	}
-	return sum;
+	return current_max;
 
 }
-
