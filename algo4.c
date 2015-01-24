@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h> /* memset */
 #include <unistd.h>
+#include <assert.h>
 #include <errno.h>
 #include <string.h>
 #include <sys/types.h>
@@ -18,32 +19,62 @@
 
 void algo4(int *test_array, int sizeofarray);
 
+//Assumes array must have at least 1 positive number.
+
+
+//from: http://stackoverflow.com/questions/822323/how-to-generate-a-random-number-in-c
+//pulled random generator out so seed set up properly
+int random_number(int min_num, int max_num)
+        {
+            int result=0,low_num=0,hi_num=0;
+            if(min_num<max_num)
+            {
+                low_num=min_num;
+                hi_num=max_num+1; // this is done to include max_num in output.
+            }else{
+                low_num=max_num+1;// this is done to include max_num in output.
+                hi_num=min_num;
+            }
+            result = (rand()%(hi_num-low_num))+low_num;
+            return result;
+        }
+
 
 //Takes in the arguments from the command lines and provides parameters to functions
 
 
 int main(int argc, char **argv) 
 {
+	srand(time(NULL));
 	int sizeofarray;
 	char size_string[10];
 	strcpy(size_string,argv[1]); 
-	printf("%s",size_string);
+	//printf("%s",size_string);
 	sizeofarray=atoi(size_string);
-
-
+	//char * stringarray;
+	int array[sizeofarray];
+	int t=0;
+	while (t<sizeofarray)
+	{
+		array[t]= random_number(-100,100);
+		printf("%d ", array[t]);
+		t++;
+	}
 	//need to use malloc?
 	//int array[15]= {2,-4,3,-2,1,4,-5,2,3,1,-2,10,-4,1,2};
-	int array[10]= {31, -41, 59, 26, -53, 58, 97, -93, -23, 84};
+	//int array[10]= {31, -41, 59, 26, -53, 58, 97, -93, -23, 84};
 	//int sizeofarray = sizeof(array)/sizeof(int);
-
+	//sprintf(stringarray,array);
 	algo4(array,sizeofarray);
 }
 
 void algo4(int *test_array, int sizeofarray)
 {
+	assert (sizeofarray != 0);
 	int max_ending_here = 0; 
 	int current_max = 0;
-	int endpoint, endpoint2;
+	int endpoint=0;
+	int  endpoint2=0;
 	int sum;
 	int i;
 	int count=0;
@@ -67,12 +98,15 @@ void algo4(int *test_array, int sizeofarray)
 		}	
 
 	//Print functionality for max sum and max array
-	printf("The maximum sum is: %d\n", current_max);
+	printf("\nThe maximum sum is: %d\n", current_max);
 
 	printf("The maximum subarray is:\n");
 				
 	//tried to come up with a way to handle counting, will need to verify that it works
-	printf("Count Method:\n");
+	printf("Count Method: NOT WORKING CONSISTENTLY FOR LARGE ARRAYS\n");
+
+	if (current_max != 0)
+	{
 	while(count>=0)
 	{
 		printf("%d ", test_array[endpoint-count]);	
@@ -101,6 +135,8 @@ void algo4(int *test_array, int sizeofarray)
 		printf("%d ",test_array[endpoint]);
 		endpoint++;
 	}
+	}
+	else printf("The array had only numbers <= 0");
 	
 }		
 
