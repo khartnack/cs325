@@ -7,33 +7,56 @@
 
 #include <stdio.h> 
 #include <stdlib.h>
+#include <string.h> /* memset */
 
+void algo4(int *test_array, int sizeofarray);
 
-int algo4(int *test_array, int sizeofarray);
-
-
-//Calls algo4 with a test array.
+//Takes in the arguments from the command lines and provides parameters to functions
 int main(int argc, char **argv) 
 {
-	int array[14]= {2, 3, -2, 1, 4, -5, 2, 3, 1, -2, 10, -4, 1, 2};
+	int array[15]= {2,-4,3,-2,1,4,-5,2,3,1,-2,10,-4,1,2};
 	int sizeofarray = sizeof(array)/sizeof(int);
-	int maxsum;
-	maxsum=algo4(array,sizeofarray);
-	printf("\nmax sum of array: %d\n", maxsum);
+	algo4(array,sizeofarray);
 }
 
-//solves max sum problem using kundane algorithm
-int algo4(int *test_array, int sizeofarray)
+
+void algo4(int *test_array, int sizeofarray)
 {
-	int max_ending_here, current_max = 0;
-	for (int i=0; i< sizeofarray; i++)
+	int max_ending_here = 0; 
+	int current_max = 0;
+	int endpoint, endpoint2;
+	int sum;
+	int i;
+	for (i=0; i< sizeofarray; i++)
 	{
 		max_ending_here = max_ending_here + test_array[i];
 		if(max_ending_here<0)
-			max_ending_here = 0;
+		{	max_ending_here = 0;
+		}
 		if (current_max < max_ending_here)
-			current_max = max_ending_here;
+		{	current_max = max_ending_here;
+			endpoint =  i;	
+			endpoint2 = i;
+			printf("current max = %d\n", current_max);
+		}		
 	}
-	return current_max;
-}
+	printf("The maximum sum is: %d\n", current_max);
+	printf("The maximum subarray is:");
+	//int endpoint2 = endpoint;
+	sum=test_array[endpoint];
+	while(sum<current_max)
+	{
+		endpoint=endpoint-1;
+		sum = test_array[endpoint]+sum;
+		printf("%d ", endpoint);
+		printf("%d %d\n", sum, current_max);
+	}
+	//endpoint++;
+	while(endpoint2>=endpoint)
+	{
+		printf("%d ",test_array[endpoint]);
+		endpoint++;
+	}
+	
+}		
 
