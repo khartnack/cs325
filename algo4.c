@@ -14,7 +14,9 @@ void algo4(int *test_array, int sizeofarray);
 //Takes in the arguments from the command lines and provides parameters to functions
 int main(int argc, char **argv) 
 {
-	int array[15]= {2,-4,3,-2,1,4,-5,2,3,1,-2,10,-4,1,2};
+	//need to use malloc?
+	//int array[15]= {2,-4,3,-2,1,4,-5,2,3,1,-2,10,-4,1,2};
+	int array[10]= {31, -41, 59, 26, -53, 58, 97, -93, -23, 84};
 	int sizeofarray = sizeof(array)/sizeof(int);
 	algo4(array,sizeofarray);
 }
@@ -81,7 +83,6 @@ void algo4(int *test_array, int sizeofarray)
 		printf("%d ",test_array[endpoint]);
 		endpoint++;
 	}
-	printf("\n");
-
+	
 }		
 
