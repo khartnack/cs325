@@ -8,16 +8,34 @@
 #include <stdio.h> 
 #include <stdlib.h>
 #include <string.h> /* memset */
+#include <unistd.h>
+#include <errno.h>
+#include <string.h>
+#include <sys/types.h>
+#include <time.h> 
+#include <dirent.h>
+
 
 void algo4(int *test_array, int sizeofarray);
 
+
 //Takes in the arguments from the command lines and provides parameters to functions
+
+
 int main(int argc, char **argv) 
 {
+	int sizeofarray;
+	char size_string[10];
+	strcpy(size_string,argv[1]); 
+	printf("%s",size_string);
+	sizeofarray=atoi(size_string);
+
+
 	//need to use malloc?
 	//int array[15]= {2,-4,3,-2,1,4,-5,2,3,1,-2,10,-4,1,2};
 	int array[10]= {31, -41, 59, 26, -53, 58, 97, -93, -23, 84};
-	int sizeofarray = sizeof(array)/sizeof(int);
+	//int sizeofarray = sizeof(array)/sizeof(int);
+
 	algo4(array,sizeofarray);
 }
 
