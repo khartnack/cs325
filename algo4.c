@@ -12,7 +12,7 @@
 int algo4(int *test_array, int sizeofarray);
 
 
-//Takes in the arguments from the command lines and provides parameters to functions
+//Calls algo4 with a test array.
 int main(int argc, char **argv) 
 {
 	int array[14]= {2, 3, -2, 1, 4, -5, 2, 3, 1, -2, 10, -4, 1, 2};
@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 	printf("\nmax sum of array: %d\n", maxsum);
 }
 
-
+//solves max sum problem using kundane algorithm
 int algo4(int *test_array, int sizeofarray)
 {
 	int max_ending_here, current_max = 0;
