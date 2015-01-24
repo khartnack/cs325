@@ -5,6 +5,9 @@
 	Project 1
 */
 
+
+//instructions:  to run, use Makefile and then run ./algo4 [# of elements] for example ./algo4 100
+
 #include <stdio.h> 
 #include <stdlib.h>
 #include <string.h> /* memset */
