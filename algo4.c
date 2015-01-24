@@ -41,7 +41,7 @@ int random_number(int min_num, int max_num)
 
 
 //Takes in the arguments from the command lines and provides parameters to functions
-
+//can add command line argument to tell whether to generate random array or use provided test cases.
 
 int main(int argc, char **argv) 
 {
@@ -54,12 +54,17 @@ int main(int argc, char **argv)
 	//char * stringarray;
 	int array[sizeofarray];
 	int t=0;
+	printf("[");
 	while (t<sizeofarray)
 	{
 		array[t]= random_number(-100,100);
-		printf("%d ", array[t]);
+		printf("%d", array[t]);
+		if (t!=(sizeofarray-1))
+			printf(",");
 		t++;
 	}
+	printf("], ");
+	
 	//need to use malloc?
 	//int array[15]= {2,-4,3,-2,1,4,-5,2,3,1,-2,10,-4,1,2};
 	//int array[10]= {31, -41, 59, 26, -53, 58, 97, -93, -23, 84};
@@ -98,24 +103,25 @@ void algo4(int *test_array, int sizeofarray)
 		}	
 
 	//Print functionality for max sum and max array
-	printf("\nThe maximum sum is: %d\n", current_max);
 
-	printf("The maximum subarray is:\n");
+	//printf("The maximum subarray is:\n");
 				
 	//tried to come up with a way to handle counting, will need to verify that it works
-	printf("Count Method: NOT WORKING CONSISTENTLY FOR LARGE ARRAYS\n");
+	//printf("Count Method: NOT WORKING CONSISTENTLY FOR LARGE ARRAYS\n");
 
 	if (current_max != 0)
 	{
-	while(count>=0)
-	{
-		printf("%d ", test_array[endpoint-count]);	
-		count--;
-	}
-	printf("\n");
+		/*
+		while(count>=0)
+		{
+			printf("%d ", test_array[endpoint-count]);	
+			count--;
+		}
+		
+		printf("\n");*/
 
 
-	printf("Iterating backwards summing elements:\n");
+	//printf("Iterating backwards summing elements:\n");
 	sum=test_array[endpoint];
 
 	//calculates from max sum back to get the elements in the array
@@ -130,11 +136,16 @@ void algo4(int *test_array, int sizeofarray)
 
 	//once reaches the start of the subarray, moves forward to
 	//display the subarray in order
+	printf("[");
 	while(endpoint2>=endpoint)
 	{
-		printf("%d ",test_array[endpoint]);
+		printf("%d",test_array[endpoint]);
+		if(endpoint <(endpoint2))
+			printf(",");
 		endpoint++;
 	}
+	printf("], %d\n", current_max);
+
 	}
 	else printf("The array had only numbers <= 0");
 	
