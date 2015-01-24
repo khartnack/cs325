@@ -52,25 +52,32 @@ int main(int argc, char **argv)
 	//printf("%s",size_string);
 	sizeofarray=atoi(size_string);
 	//char * stringarray;
-	int array[sizeofarray];
-	int t=0;
-	printf("[");
-	while (t<sizeofarray)
+	//int array[sizeofarray];
+	//int t=0;
+	int k;
+	for (k=0; k<10; k++)
 	{
-		array[t]= random_number(-100,100);
-		printf("%d", array[t]);
-		if (t!=(sizeofarray-1))
+		int t=0;
+		int array[sizeofarray];
+		printf("%d. ", (k+1));
+		printf("[");
+		while (t<sizeofarray)
+		{
+			array[t]= random_number(-100,100);
+			printf("%d", array[t]);
+			if (t!=(sizeofarray-1))
 			printf(",");
-		t++;
-	}
-	printf("], ");
-	
+			t++;
+		}
+		printf("], ");
+		algo4(array,sizeofarray);
+	//	array = 0;
 	//need to use malloc?
 	//int array[15]= {2,-4,3,-2,1,4,-5,2,3,1,-2,10,-4,1,2};
 	//int array[10]= {31, -41, 59, 26, -53, 58, 97, -93, -23, 84};
 	//int sizeofarray = sizeof(array)/sizeof(int);
 	//sprintf(stringarray,array);
-	algo4(array,sizeofarray);
+	}
 }
 
 void algo4(int *test_array, int sizeofarray)
