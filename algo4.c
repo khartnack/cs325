@@ -19,7 +19,6 @@ int main(int argc, char **argv)
 	algo4(array,sizeofarray);
 }
 
-
 void algo4(int *test_array, int sizeofarray)
 {
 	int max_ending_here = 0; 
@@ -35,28 +34,26 @@ void algo4(int *test_array, int sizeofarray)
 		}
 		if (current_max < max_ending_here)
 		{	current_max = max_ending_here;
-			endpoint =  i;	
+			endpoint = i;	
 			endpoint2 = i;
-			printf("current max = %d\n", current_max);
 		}		
 	}
 	printf("The maximum sum is: %d\n", current_max);
-	printf("The maximum subarray is:");
-	//int endpoint2 = endpoint;
+	printf("The maximum subarray is: ");
 	sum=test_array[endpoint];
+
 	while(sum<current_max)
 	{
 		endpoint=endpoint-1;
 		sum = test_array[endpoint]+sum;
-		printf("%d ", endpoint);
-		printf("%d %d\n", sum, current_max);
 	}
-	//endpoint++;
+
 	while(endpoint2>=endpoint)
 	{
 		printf("%d ",test_array[endpoint]);
 		endpoint++;
 	}
+	printf("\n");
 	
 }		
 
