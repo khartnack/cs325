@@ -45,6 +45,8 @@ int random_number(int min_num, int max_num)
 
 int main(int argc, char **argv) 
 {
+	clock_t start, end;
+	//time_t start, end;
 	srand(time(NULL));
 	int sizeofarray;
 	char size_string[10];
@@ -70,8 +72,11 @@ int main(int argc, char **argv)
 			t++;
 		}
 		printf("], ");
+		start = clock();
 		algo4(array,sizeofarray);
-	//	array = 0;
+		end = clock();
+		double cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC*1000;
+		printf("\nAlgo took: %f milliseconds.\n", cpu_time_used);		        
 	//need to use malloc?
 	//int array[15]= {2,-4,3,-2,1,4,-5,2,3,1,-2,10,-4,1,2};
 	//int array[10]= {31, -41, 59, 26, -53, 58, 97, -93, -23, 84};
