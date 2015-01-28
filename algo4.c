@@ -17,19 +17,14 @@
 #include <dirent.h>
 
 
-/*struct maxsubarray 
-{
-	int start_index;
-	int end_index;
-	int sum_array;
-}*/
-
 struct tuple {
      int lowIndex;
      int highIndex;
      int sum;
 };
 
+
+void print_maxsubarray(int *test_array, int sizeofarray, struct tuple t);
 
 struct tuple algo4(int *test_array, int sizeofarray);
 
@@ -68,99 +63,133 @@ int main(int argc, char **argv)
 	sizeofarray=atoi(size_string);
 	int k;
 
+	printf("\nTest Cases:\n");
+
 	//test case 1:
 	int test_case1[16]= {1, 4, -9, 8, 1, 3, 3, 1, -1, -4, -6, 2, 8, 19, -10, -11};
 	int sizeofarray1 = sizeof(test_case1)/sizeof(int);
 	struct tuple s1;
 	s1=algo4(test_case1,sizeofarray1);
-	printf("\n%d %d %d\n\n", s1.lowIndex, s1.highIndex,s1.sum);
+	print_maxsubarray(test_case1, sizeofarray1, s1);
 
 	//test case 2:
-	int test_case2[15]= {2, 9, 8, 6, 5, -11, 9, -11, 7, 5, -1, -8, -3,7 -2};
+	int test_case2[15]= {2, 9, 8, 6, 5, -11, 9, -11, 7, 5, -1, -8, -3,7, -2};
 	int sizeofarray2 = sizeof(test_case2)/sizeof(int);
 	struct tuple s2;
 	s2=algo4(test_case2,sizeofarray2);
-	printf("\n%d %d %d\n\n", s2.lowIndex, s2.highIndex,s2.sum);
+	print_maxsubarray(test_case2, sizeofarray2, s2);
+
 
 	//test case 3:
 	int test_case3[12]= {10, -11, -1, -9, 33,-45, 23,24, -1, -7, -8, 19 };
 	int sizeofarray3 = sizeof(test_case3)/sizeof(int);
 	struct tuple s3;
 	s3=algo4(test_case3,sizeofarray3);
-	printf("\n%d %d %d\n\n", s3.lowIndex, s3.highIndex,s3.sum);
+	print_maxsubarray(test_case3, sizeofarray3, s3);
 
 	//test case 4:
 	int test_case4[10]= {31,-41, 59, 26, -53, 58, 97, -93, -23, 84 };
 	int sizeofarray4 = sizeof(test_case4)/sizeof(int);
 	struct tuple s4;
 	s4=algo4(test_case4,sizeofarray4);
-	printf("\n%d %d %d\n\n", s4.lowIndex, s4.highIndex,s4.sum);
+	print_maxsubarray(test_case4, sizeofarray4, s4);
+
 
 	//test case 5:
 	int test_case5[9]= {3,2, 1,1,-8, 1,1,2, 3};
 	int sizeofarray5 = sizeof(test_case5)/sizeof(int);
 	struct tuple s5;
 	s5=algo4(test_case5,sizeofarray5);
-	printf("\n%d %d %d\n\n", s5.lowIndex, s5.highIndex,s5.sum);
+	print_maxsubarray(test_case5, sizeofarray5, s5);
+
 
 	//test case 6:
 	int test_case6[10]= {12, 99, 99, -99, -27, 0, 0, 0, -3,10 };
 	int sizeofarray6 = sizeof(test_case6)/sizeof(int);
 	struct tuple s6;
 	s6=algo4(test_case6,sizeofarray6);
-	printf("\n%d %d %d\n\n", s6.lowIndex, s6.highIndex,s6.sum);
+	print_maxsubarray(test_case6, sizeofarray6, s6);
 
 	//test case 7:
 	int test_case7[10]= {12, 99, 99, -99, -27, 0, 0, 0, -3,10 };
 	int sizeofarray7 = sizeof(test_case7)/sizeof(int);
 	struct tuple s7;
 	s7=algo4(test_case7,sizeofarray7);
-	printf("\n%d %d %d\n\n", s7.lowIndex, s7.highIndex,s7.sum);
+	print_maxsubarray(test_case7, sizeofarray7, s7);
+
 
 	//test case 8:
 	int test_case8[9]= {-2, 1,-3, 4, -1,2, 1,-5, 4};
 	int sizeofarray8 = sizeof(test_case8)/sizeof(int);
 	struct tuple s8;
 	s8=algo4(test_case8,sizeofarray8);
-	printf("\n%d %d %d\n\n", s8.lowIndex, s8.highIndex,s8.sum);
+	print_maxsubarray(test_case8, sizeofarray8, s8);
 
 	//test case 9:
 	int test_case9[4]= {-1.3, 2.77, -2, 12.8 };
 	int sizeofarray9 = sizeof(test_case9)/sizeof(int);
 	struct tuple s9;
-	s9=algo4(test_case1,sizeofarray9);
-	printf("\n%d %d %d\n\n", s9.lowIndex, s9.highIndex,s9.sum);
+	s9=algo4(test_case9,sizeofarray9);
+	print_maxsubarray(test_case9, sizeofarray9, s9);
 
 	//test case 10:
 	int test_case10[3]= {-1, -3,-5};
 	int sizeofarray10 = sizeof(test_case10)/sizeof(int);
 	struct tuple s10;
 	s10=algo4(test_case10,sizeofarray10);
-	printf("\n%d %d %d\n\n", s10.lowIndex, s10.highIndex,s10.sum);
-
+	print_maxsubarray(test_case10, sizeofarray10, s10);
 
 	for (k=0; k<10; k++)
 	{
 		int t=0;
 		int array[sizeofarray];
 		printf("%d. ", (k+1));
-		printf("[");
 		while (t<sizeofarray)
 		{
 			array[t]= random_number(-100,100);
-			printf("%d", array[t]);
-			if (t!=(sizeofarray-1))
-			printf(",");
 			t++;
 		}
-		printf("], ");
 		start = clock();
 		s= algo4(array,sizeofarray);
 		end = clock();
 		double cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC*1000;
-		//printf("\nAlgo took: %f milliseconds.\n", cpu_time_used);		        
-		printf("\n%d %d %d\n\n", s.lowIndex, s.highIndex,s.sum);
+		printf("Algorithm 4: %.2f milliseconds", cpu_time_used);		        
+		print_maxsubarray(array, sizeofarray, s);
+
 	}
+}
+
+void print_maxsubarray(int *test_array, int sizeofarray, struct tuple t)
+{
+	int m, i, j;
+	m=0;
+	printf("\nOriginal Array : ");
+	while (m<sizeofarray)
+	{
+		printf("%d", test_array[m]);
+		if (m!=(sizeofarray-1))
+			printf(",");
+		m++;
+	}
+	printf("\nSubarray ");
+	i = t.lowIndex;
+	j = t.highIndex;
+	if(i == 0 && t.sum==0)
+	{
+		printf(" (empty)\nMax sum: 0\n\n");
+	}
+	else
+	{
+		while(i<=j)
+		{
+			printf("%d", test_array[i]);
+			if (i<j)
+				printf(",");
+			i++;
+		}	
+		printf("\nMax sum: %d\n\n", t.sum);
+	}
+
 }
 
 struct tuple algo4(int *test_array, int sizeofarray)
@@ -191,29 +220,7 @@ struct tuple algo4(int *test_array, int sizeofarray)
 	
 	d.lowIndex=max_start;
 	d.highIndex=endpoint;
-//	d.sum=max_ending_here;	
 	d.sum=current_max;
-
-	//Print functionality for max sum and max array
-
-	if (current_max != 0)
-	{
-		printf("[");
-		for(int m=max_start;m<=endpoint;m++)
-		{
-			printf("%d", test_array[m]);
-			if(m<endpoint)
-				printf(",");				
-		}
-		printf("],");
-//		printf("%d", max_ending_here);
-		printf("%d", current_max);
-
-
-	}
-
-
-	else printf("The array had only numbers <= 0");
 
 	return d;
 
