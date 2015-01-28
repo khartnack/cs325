@@ -44,6 +44,7 @@ testcase:
 	diff algo4.txt algo3.txt 
 	diff algo3.txt algo2.txt
 	diff algo2.txt algo1.txt
+	ar q MMS_file.ar algo1.txt algo2.txt algo3.txt algo4.txt
+	cp MMS_file.ar MMS_Results.txt
 
 clean:
-	rm -f $(PROGS) *.o *~ *# algo4.txt algo3.txt algo2.txt algo1.txt test.out
