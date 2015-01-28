@@ -17,7 +17,21 @@
 #include <dirent.h>
 
 
-void algo4(int *test_array, int sizeofarray);
+/*struct maxsubarray 
+{
+	int start_index;
+	int end_index;
+	int sum_array;
+}*/
+
+struct tuple {
+     int lowIndex;
+     int highIndex;
+     int sum;
+};
+
+
+struct tuple algo4(int *test_array, int sizeofarray);
 
 //Assumes array must have at least 1 positive number.
 
@@ -45,6 +59,7 @@ int random_number(int min_num, int max_num)
 
 int main(int argc, char **argv) 
 {
+	struct tuple s;
 	clock_t start, end;
 	srand(time(NULL));
 	int sizeofarray;
@@ -68,28 +83,27 @@ int main(int argc, char **argv)
 		}
 		printf("], ");
 		start = clock();
-		algo4(array,sizeofarray);
+		s= algo4(array,sizeofarray);
 		end = clock();
 		double cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC*1000;
-		printf("\nAlgo took: %f milliseconds.\n", cpu_time_used);		        
+		//printf("\nAlgo took: %f milliseconds.\n", cpu_time_used);		        
+		printf("\n%d %d %d\n\n", s.lowIndex, s.highIndex,s.sum);
 	}
 }
 
-void algo4(int *test_array, int sizeofarray)
+struct tuple algo4(int *test_array, int sizeofarray)
 {
+	struct tuple d;
 	assert (sizeofarray != 0);
 	int max_ending_here;
 	int max_start = 0; 
 	int current_max;
 	int endpoint;
 	current_max = max_ending_here = 0;
-	int  endpoint2=0;
-//	int sum;
 	int i;
 	int current_start=0;
 	for (i=0; i< sizeofarray; i++)
 	{
-//		max_ending_here = max_ending_here + test_array[i];
 		if(max_ending_here<0)
 		{	max_ending_here = 0;
 			current_start=i;
@@ -99,59 +113,37 @@ void algo4(int *test_array, int sizeofarray)
 		if (current_max < max_ending_here)
 		{	current_max = max_ending_here;
 			max_start = current_start;
-			endpoint = endpoint2 = i;	
+			endpoint = i;	
 		}
 	}
+	
+	d.lowIndex=max_start;
+	d.highIndex=endpoint;
+//	d.sum=max_ending_here;	
+	d.sum=current_max;
 
 	//Print functionality for max sum and max array
 
 	if (current_max != 0)
 	{
+		printf("[");
+		for(int m=max_start;m<=endpoint;m++)
+		{
+			printf("%d", test_array[m]);
+			if(m<endpoint)
+				printf(",");				
+		}
+		printf("],");
+//		printf("%d", max_ending_here);
+		printf("%d", current_max);
 
 
-//	printf("\nk: %d\n", test_array[max_start]);
-
-	printf("[");
-	for(int m=max_start;m<=endpoint;m++)
-	{
-		printf("%d", test_array[m]);
-		if(m<endpoint)
-			printf(",");		
-		
-	}
-	printf("]\n");
-
-/*
-	//printf("Iterating backwards summing elements:\n");
-	sum=test_array[endpoint];
-
-	//calculates from max sum back to get the elements in the array
-	//could have also created a separate array to track the subarray
-	//so did not have to iterate backwards 
-
-	while(sum<current_max)
-	{
-		endpoint=endpoint-1;
-		sum = test_array[endpoint]+sum;
 	}
 
-	//once reaches the start of the subarray, moves forward to
-	//display the subarray in order
 
-
-	printf("[");
-	while(endpoint2>=endpoint)
-	{
-		printf("%d",test_array[endpoint]);
-		if(endpoint <(endpoint2))
-			printf(",");
-		endpoint++;
-	}
-	printf("], %d\n", current_max);
-*/
-	}
 	else printf("The array had only numbers <= 0");
 
+	return d;
 
 }		
 
