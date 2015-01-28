@@ -46,4 +46,4 @@ testcase:
 	diff algo2.txt algo1.txt
 
 clean:
-	rm -f $(PROGS) *.o *~ *# *.txt *.out
+	rm -f $(PROGS) *.o *~ *# algo4.txt algo3.txt algo2.txt algo1.txt test.out
