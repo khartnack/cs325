@@ -5,6 +5,11 @@
 	Project 1
 */
 
+//to run program enter the following after compiling with make
+// ./algo4 [# elements in array]     //testcase to print out results to test cases
+// ./algo4 [# elements in array ]  //prints out just timing results for algo 4 for 10 random arrays of element size
+// ./algo4 [#of elements in array]  printrandomarray  //shows the random array and timing
+
 #include <stdio.h> 
 #include <stdlib.h>
 #include <string.h> /* memset */
