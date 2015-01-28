@@ -5,11 +5,6 @@
 	Project 1
 */
 
-//to run program enter the following after compiling with make
-// ./algo4 [# elements in array]     //testcase to print out results to test cases
-// ./algo4 [# elements in array ]  //prints out just timing results for algo 4 for 10 random arrays of element size
-// ./algo4 [#of elements in array]  printrandomarray  //shows the random array and timing
-
 #include <stdio.h> 
 #include <stdlib.h>
 #include <string.h> /* memset */
@@ -148,6 +143,12 @@ int main(int argc, char **argv)
 		s10=algo4(test_case10,sizeofarray10);
 		print_maxsubarray(test_case10, sizeofarray10, s10);
 
+		//test case 11:
+		int test_case11[5]= {4, -4, -40, 5, -5};
+                int sizeofarray11 = sizeof(test_case11)/sizeof(int);
+                struct tuple s11;
+                s11=algo4(test_case11,sizeofarray11);
+                print_maxsubarray(test_case11, sizeofarray11, s11);
 	}
 
 	else
@@ -177,6 +178,7 @@ int main(int argc, char **argv)
 void print_maxsubarray(int *test_array, int sizeofarray, struct tuple t)
 {
 	int m, i, j;
+	//int sum = 0;
 	m=0;
 	printf("\nOriginal Array : ");
 	while (m<sizeofarray)
@@ -191,7 +193,13 @@ void print_maxsubarray(int *test_array, int sizeofarray, struct tuple t)
 	j = t.highIndex;
 	if(i == 0 && t.sum==0)
 	{
-		printf(" (empty)\nMax sum: 0\n\n");
+		//while(i<j)
+		//{
+		//	sum=test_array[i] + sum;
+		//	i++;
+		//}
+		//if(sum<0)
+			printf(" (empty)\nMax sum: 0\n\n");
 	}
 	else
 	{
@@ -240,4 +248,3 @@ struct tuple algo4(int *test_array, int sizeofarray)
 	return d;
 
 }		
-
