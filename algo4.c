@@ -132,7 +132,7 @@ int main(int argc, char **argv)
 		{
 			int t=0;
 			int array[sizeofarray];
-			printf("%d. ", (k+1));
+			//printf("%d. ", (k+1));
 			while (t<sizeofarray)
 			{
 				array[t]= random_number(-100,100);  //generates random numbers between -100 and 100
@@ -142,7 +142,7 @@ int main(int argc, char **argv)
 			s= algo4(array,sizeofarray);
 			end = clock();
 			double cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC*1000;
-			printf("Algorithm 4: %.2f milliseconds\n", cpu_time_used);		        
+			printf("4, %d, %.2f\n", sizeofarray, cpu_time_used);		        
 			if ((argc==3)&&(strcmp(argv[2],"printrandomarray")==0))
 				print_maxsubarray(array, sizeofarray, s);
 
