@@ -39,7 +39,11 @@ tests: test>test.out
 testcase:  
 	./algo4 10 testcase algo4>algo4.txt	
 	./algo4 10 testcase algo4>algo3.txt
-	diff algo4.txt algo3.txt
+	./algo4 10 testcase algo4>algo2.txt
+	./algo4 10 testcase algo4>algo1.txt
+	diff algo4.txt algo3.txt 
+	diff algo3.txt algo2.txt
+	diff algo2.txt algo1.txt
 
 clean:
-	rm -f $(PROGS) *.o *~ *#
+	rm -f $(PROGS) *.o *~ *# *.txt *.out
