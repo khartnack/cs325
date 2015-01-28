@@ -18,7 +18,7 @@
 
 
 //to run program enter the following after compiling with make
-// ./algo4 10 testcase  //to print out results to test cases
+// ./algo4 10 testcase algo4 //to print out results to test cases for algo4
 // ./algo4 [# elements in array ] //prints out just timing results for algo 4 for 10 random arrays of element specified size
 // ./algo4 [#of elements in array] printrandomarray //shows the random array and timing
 
@@ -69,10 +69,8 @@ int main(int argc, char **argv)
 
 
 	//prints results for test cases provided in MSS_Problems.txt
-	if ((argc==3) && (strcmp(argv[2],"testcase")==0))
+	if ((argc==4) && (strcmp(argv[2],"testcase")==0) && (strcmp(argv[3],"algo4")==0))  //test cases for algo4
 	{
-
-
 		//test case 1:
 		int test_case1[36]= {1, 2, 4, -1, 4, -10, 4, -19, 18, -1, -3, -4, 11, 3, -20, 19, -33, 50, 66, -22, -4, -55, 91, 100, -102, 9, 10, 19, -10, 10, 11, 11, -10, -18, 50, 90};
 		int sizeofarray1 = sizeof(test_case1)/sizeof(int);
