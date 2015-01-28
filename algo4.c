@@ -17,18 +17,22 @@
 #include <dirent.h>
 
 
+//to run program enter the following after compiling with make
+// ./algo4 10 testcase  //to print out results to test cases
+// ./algo4 [# elements in array ] //prints out just timing results for algo 4 for 10 random arrays of element specified size
+// ./algo4 [#of elements in array] printrandomarray //shows the random array and timing
+
+
 struct tuple {
-     int lowIndex;
-     int highIndex;
-     int sum;
+     int lowIndex; //holds start of max subarray
+     int highIndex; //holds end of max subarray
+     int sum; //holds sum of max subarray
 };
 
 
-void print_maxsubarray(int *test_array, int sizeofarray, struct tuple t);
+void print_maxsubarray(int *test_array, int sizeofarray, struct tuple t);  //prints the array, max subarray, and sum of max subarray
 
 struct tuple algo4(int *test_array, int sizeofarray);
-
-//Assumes array must have at least 1 positive number.
 
 
 //from: http://stackoverflow.com/questions/822323/how-to-generate-a-random-number-in-c
@@ -64,20 +68,20 @@ int main(int argc, char **argv)
 	int k;
 
 
+	//prints results for test cases provided in MSS_Problems.txt
 	if ((argc==3) && (strcmp(argv[2],"testcase")==0))
 	{
 
-		printf("\nTest Cases:\n");
 
 		//test case 1:
-		int test_case1[16]= {1, 4, -9, 8, 1, 3, 3, 1, -1, -4, -6, 2, 8, 19, -10, -11};
+		int test_case1[36]= {1, 2, 4, -1, 4, -10, 4, -19, 18, -1, -3, -4, 11, 3, -20, 19, -33, 50, 66, -22, -4, -55, 91, 100, -102, 9, 10, 19, -10, 10, 11, 11, -10, -18, 50, 90};
 		int sizeofarray1 = sizeof(test_case1)/sizeof(int);
 		struct tuple s1;
 		s1=algo4(test_case1,sizeofarray1);
 		print_maxsubarray(test_case1, sizeofarray1, s1);
 
 		//test case 2:
-		int test_case2[15]= {2, 9, 8, 6, 5, -11, 9, -11, 7, 5, -1, -8, -3,7, -2};
+		int test_case2[22]= {12, 12, 14, -88, -1, 45, 6, 8, -33, 2, 8, -9, -33, -8, -23, -77, -89, 1, 9, 10, 92, 87};
 		int sizeofarray2 = sizeof(test_case2)/sizeof(int);
 		struct tuple s2;
 		s2=algo4(test_case2,sizeofarray2);
@@ -85,14 +89,14 @@ int main(int argc, char **argv)
 
 
 		//test case 3:
-		int test_case3[12]= {10, -11, -1, -9, 33,-45, 23,24, -1, -7, -8, 19 };
+		int test_case3[21]= {565, 78, 33, 9, 10, 84, 71, -4, -22, -55, -10, 76, -9, -9, -11, 76, 89, 11, 10, -33, 9};
 		int sizeofarray3 = sizeof(test_case3)/sizeof(int);
 		struct tuple s3;
 		s3=algo4(test_case3,sizeofarray3);
 		print_maxsubarray(test_case3, sizeofarray3, s3);
 	
 		//test case 4:
-		int test_case4[10]= {31,-41, 59, 26, -53, 58, 97, -93, -23, 84 };
+		int test_case4[31]= {2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
 		int sizeofarray4 = sizeof(test_case4)/sizeof(int);
 		struct tuple s4;
 		s4=algo4(test_case4,sizeofarray4);
@@ -100,7 +104,7 @@ int main(int argc, char **argv)
 
 
 		//test case 5:
-		int test_case5[9]= {3,2, 1,1,-8, 1,1,2, 3};
+		int test_case5[1]= {2};
 		int sizeofarray5 = sizeof(test_case5)/sizeof(int);
 		struct tuple s5;
 		s5=algo4(test_case5,sizeofarray5);
@@ -108,49 +112,22 @@ int main(int argc, char **argv)
 
 
 		//test case 6:
-		int test_case6[10]= {12, 99, 99, -99, -27, 0, 0, 0, -3,10 };
+		int test_case6[17]= {-1, -1, -1, -1, -1, -100, -10, -10, 100, 100, 100, 100, -100, 100, 10, -10, -1};
 		int sizeofarray6 = sizeof(test_case6)/sizeof(int);
 		struct tuple s6;
 		s6=algo4(test_case6,sizeofarray6);
 		print_maxsubarray(test_case6, sizeofarray6, s6);
 
 		//test case 7:
-		int test_case7[10]= {12, 99, 99, -99, -27, 0, 0, 0, -3,10 };
+		int test_case7[29]= {12, 23, 44, -17, 12, 14, -88, -1, 45, 6, 8, -33, 2, 8, -9, -33, -8, -23, -77, -89, 1, 9, 13, -25, 10, 92, 57, 99, -22};
 		int sizeofarray7 = sizeof(test_case7)/sizeof(int);
 		struct tuple s7;
 		s7=algo4(test_case7,sizeofarray7);
 		print_maxsubarray(test_case7, sizeofarray7, s7);
 
-
-		//test case 8:
-		int test_case8[9]= {-2, 1,-3, 4, -1,2, 1,-5, 4};
-		int sizeofarray8 = sizeof(test_case8)/sizeof(int);
-		struct tuple s8;
-		s8=algo4(test_case8,sizeofarray8);
-		print_maxsubarray(test_case8, sizeofarray8, s8);
-
-		//test case 9:
-		int test_case9[4]= {-1.3, 2.77, -2, 12.8 };
-		int sizeofarray9 = sizeof(test_case9)/sizeof(int);
-		struct tuple s9;
-		s9=algo4(test_case9,sizeofarray9);
-		print_maxsubarray(test_case9, sizeofarray9, s9);
-
-		//test case 10:
-		int test_case10[3]= {-1, -3,-5};
-		int sizeofarray10 = sizeof(test_case10)/sizeof(int);
-		struct tuple s10;
-		s10=algo4(test_case10,sizeofarray10);
-		print_maxsubarray(test_case10, sizeofarray10, s10);
-
-		//test case 11:
-		int test_case11[5]= {4, -4, -40, 5, -5};
-                int sizeofarray11 = sizeof(test_case11)/sizeof(int);
-                struct tuple s11;
-                s11=algo4(test_case11,sizeofarray11);
-                print_maxsubarray(test_case11, sizeofarray11, s11);
 	}
 
+	//computes results for the specified array size
 	else
 	{
 		for (k=0; k<10; k++)
@@ -160,7 +137,7 @@ int main(int argc, char **argv)
 			printf("%d. ", (k+1));
 			while (t<sizeofarray)
 			{
-				array[t]= random_number(-100,100);
+				array[t]= random_number(-100,100);  //generates random numbers between -100 and 100
 				t++;
 			}
 			start = clock();
@@ -178,9 +155,8 @@ int main(int argc, char **argv)
 void print_maxsubarray(int *test_array, int sizeofarray, struct tuple t)
 {
 	int m, i, j;
-	//int sum = 0;
 	m=0;
-	printf("\nOriginal Array : ");
+	printf("\n[");
 	while (m<sizeofarray)
 	{
 		printf("%d", test_array[m]);
@@ -188,18 +164,12 @@ void print_maxsubarray(int *test_array, int sizeofarray, struct tuple t)
 			printf(",");
 		m++;
 	}
-	printf("\nSubarray ");
+	printf("],[");
 	i = t.lowIndex;
 	j = t.highIndex;
 	if(i == 0 && t.sum==0)
 	{
-		//while(i<j)
-		//{
-		//	sum=test_array[i] + sum;
-		//	i++;
-		//}
-		//if(sum<0)
-			printf(" (empty)\nMax sum: 0\n\n");
+		printf(" (empty),  0\n");
 	}
 	else
 	{
@@ -210,41 +180,46 @@ void print_maxsubarray(int *test_array, int sizeofarray, struct tuple t)
 				printf(",");
 			i++;
 		}	
-		printf("\nMax sum: %d\n\n", t.sum);
+		printf("], %d\n", t.sum);
 	}
 
 }
 
+//function for algorithm 4 using kadane's algorithm explained: http://en.wikipedia.org/wiki/Maximum_subarray_problem
+//inputs are the array to compute and the size of the array
+//returns the start and end of subarray and sum of elements in array
 struct tuple algo4(int *test_array, int sizeofarray)
 {
-	struct tuple d;
-	assert (sizeofarray != 0);
-	int max_ending_here;
-	int max_start = 0; 
-	int current_max;
-	int endpoint;
-	current_max = max_ending_here = 0;
-	int i;
-	int current_start=0;
-	for (i=0; i< sizeofarray; i++)
+	struct tuple d; //holds start, end and sum of subarray
+	assert (sizeofarray != 0); //verifies that the array is not null
+	int max_ending_here;  //used to check if the max at index is greater than the current_max
+	int max_start = 0; //holds the start of the max subarray, initialized to position 0
+	int current_max; //will hold the final max sum
+	int endpoint; //holds the end of the max subarray while being computed
+	current_max = max_ending_here = 0; //initializes to 0
+	int i; //for iterating through array
+	int current_start=0; //used to track changes in the max subarray start index
+	for (i=0; i< sizeofarray; i++) //iterates through array
 	{
-		if(max_ending_here<0)
+		if(max_ending_here<0) //in case the sum is < 0
 		{	max_ending_here = 0;
-			current_start=i;
+			current_start=i;  
 		}
-		max_ending_here = max_ending_here + test_array[i];
+
+		max_ending_here = max_ending_here + test_array[i]; //adds current element in index
 		
 		if (current_max < max_ending_here)
-		{	current_max = max_ending_here;
-			max_start = current_start;
-			endpoint = i;	
+		{	current_max = max_ending_here;  //tracks the sum of max subarray
+			max_start = current_start; //tracks the start of subarray 
+			endpoint = i;	//tracks the end of max subarray
 		}
 	}
 	
-	d.lowIndex=max_start;
-	d.highIndex=endpoint;
-	d.sum=current_max;
+	d.lowIndex=max_start; //sets the final start of the max subarray index to be returned
+	d.highIndex=endpoint; //sets the final end of the max subarray index to be returned
+	d.sum=current_max; //sets the final sum ob maxsubarray index to be returned
 
-	return d;
+	return d; //returns struct d
 
 }		
+
