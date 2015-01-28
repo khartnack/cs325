@@ -5,9 +5,6 @@
 	Project 1
 */
 
-
-//instructions:  to run, use Makefile and then run ./algo4 [# of elements] for example ./algo4 100
-
 #include <stdio.h> 
 #include <stdlib.h>
 #include <string.h> /* memset */
@@ -49,16 +46,11 @@ int random_number(int min_num, int max_num)
 int main(int argc, char **argv) 
 {
 	clock_t start, end;
-	//time_t start, end;
 	srand(time(NULL));
 	int sizeofarray;
 	char size_string[10];
 	strcpy(size_string,argv[1]); 
-	//printf("%s",size_string);
 	sizeofarray=atoi(size_string);
-	//char * stringarray;
-	//int array[sizeofarray];
-	//int t=0;
 	int k;
 	for (k=0; k<10; k++)
 	{
@@ -80,62 +72,56 @@ int main(int argc, char **argv)
 		end = clock();
 		double cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC*1000;
 		printf("\nAlgo took: %f milliseconds.\n", cpu_time_used);		        
-	//need to use malloc?
-	//int array[15]= {2,-4,3,-2,1,4,-5,2,3,1,-2,10,-4,1,2};
-	//int array[10]= {31, -41, 59, 26, -53, 58, 97, -93, -23, 84};
-	//int sizeofarray = sizeof(array)/sizeof(int);
-	//sprintf(stringarray,array);
 	}
 }
 
 void algo4(int *test_array, int sizeofarray)
 {
 	assert (sizeofarray != 0);
-	int max_ending_here = 0; 
-	int current_max = 0;
-	int endpoint=0;
+	int max_ending_here;
+	int max_start = 0; 
+	int current_max;
+	int endpoint;
+	current_max = max_ending_here = 0;
 	int  endpoint2=0;
-	int sum;
+//	int sum;
 	int i;
-	int count=0;
+	int current_start=0;
 	for (i=0; i< sizeofarray; i++)
 	{
-		max_ending_here = max_ending_here + test_array[i];
+//		max_ending_here = max_ending_here + test_array[i];
 		if(max_ending_here<0)
 		{	max_ending_here = 0;
-			count = 0;
+			current_start=i;
 		}
-		else count++;
+		max_ending_here = max_ending_here + test_array[i];
+		
 		if (current_max < max_ending_here)
 		{	current_max = max_ending_here;
+			max_start = current_start;
 			endpoint = endpoint2 = i;	
-			//endpoint2 = i;
 		}
 	}
-		if(endpoint<i)
-		{
-			count=count-(i-endpoint);
-		}	
 
 	//Print functionality for max sum and max array
 
-	//printf("The maximum subarray is:\n");
-				
-	//tried to come up with a way to handle counting, will need to verify that it works
-	//printf("Count Method: NOT WORKING CONSISTENTLY FOR LARGE ARRAYS\n");
-
 	if (current_max != 0)
 	{
-		/*
-		while(count>=0)
-		{
-			printf("%d ", test_array[endpoint-count]);	
-			count--;
-		}
+
+
+//	printf("\nk: %d\n", test_array[max_start]);
+
+	printf("[");
+	for(int m=max_start;m<=endpoint;m++)
+	{
+		printf("%d", test_array[m]);
+		if(m<endpoint)
+			printf(",");		
 		
-		printf("\n");*/
+	}
+	printf("]\n");
 
-
+/*
 	//printf("Iterating backwards summing elements:\n");
 	sum=test_array[endpoint];
 
@@ -151,6 +137,8 @@ void algo4(int *test_array, int sizeofarray)
 
 	//once reaches the start of the subarray, moves forward to
 	//display the subarray in order
+
+
 	printf("[");
 	while(endpoint2>=endpoint)
 	{
@@ -160,9 +148,10 @@ void algo4(int *test_array, int sizeofarray)
 		endpoint++;
 	}
 	printf("], %d\n", current_max);
-
+*/
 	}
 	else printf("The array had only numbers <= 0");
-	
+
+
 }		
 
