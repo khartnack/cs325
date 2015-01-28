@@ -48,3 +48,4 @@ testcase:
 	cp MMS_file.ar MMS_Results.txt
 
 clean:
+	rm -f $(PROGS) *.o *~ *# algo4.txt algo3.txt algo2.txt algo1.txt test.out MMS_file.ar MMS_Results.txt
