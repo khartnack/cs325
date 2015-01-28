@@ -67,6 +67,78 @@ int main(int argc, char **argv)
 	strcpy(size_string,argv[1]); 
 	sizeofarray=atoi(size_string);
 	int k;
+
+	//test case 1:
+	int test_case1[16]= {1, 4, -9, 8, 1, 3, 3, 1, -1, -4, -6, 2, 8, 19, -10, -11};
+	int sizeofarray1 = sizeof(test_case1)/sizeof(int);
+	struct tuple s1;
+	s1=algo4(test_case1,sizeofarray1);
+	printf("\n%d %d %d\n\n", s1.lowIndex, s1.highIndex,s1.sum);
+
+	//test case 2:
+	int test_case2[15]= {2, 9, 8, 6, 5, -11, 9, -11, 7, 5, -1, -8, -3,7 -2};
+	int sizeofarray2 = sizeof(test_case2)/sizeof(int);
+	struct tuple s2;
+	s2=algo4(test_case2,sizeofarray2);
+	printf("\n%d %d %d\n\n", s2.lowIndex, s2.highIndex,s2.sum);
+
+	//test case 3:
+	int test_case3[12]= {10, -11, -1, -9, 33,-45, 23,24, -1, -7, -8, 19 };
+	int sizeofarray3 = sizeof(test_case3)/sizeof(int);
+	struct tuple s3;
+	s3=algo4(test_case3,sizeofarray3);
+	printf("\n%d %d %d\n\n", s3.lowIndex, s3.highIndex,s3.sum);
+
+	//test case 4:
+	int test_case4[10]= {31,-41, 59, 26, -53, 58, 97, -93, -23, 84 };
+	int sizeofarray4 = sizeof(test_case4)/sizeof(int);
+	struct tuple s4;
+	s4=algo4(test_case4,sizeofarray4);
+	printf("\n%d %d %d\n\n", s4.lowIndex, s4.highIndex,s4.sum);
+
+	//test case 5:
+	int test_case5[9]= {3,2, 1,1,-8, 1,1,2, 3};
+	int sizeofarray5 = sizeof(test_case5)/sizeof(int);
+	struct tuple s5;
+	s5=algo4(test_case5,sizeofarray5);
+	printf("\n%d %d %d\n\n", s5.lowIndex, s5.highIndex,s5.sum);
+
+	//test case 6:
+	int test_case6[10]= {12, 99, 99, -99, -27, 0, 0, 0, -3,10 };
+	int sizeofarray6 = sizeof(test_case6)/sizeof(int);
+	struct tuple s6;
+	s6=algo4(test_case6,sizeofarray6);
+	printf("\n%d %d %d\n\n", s6.lowIndex, s6.highIndex,s6.sum);
+
+	//test case 7:
+	int test_case7[10]= {12, 99, 99, -99, -27, 0, 0, 0, -3,10 };
+	int sizeofarray7 = sizeof(test_case7)/sizeof(int);
+	struct tuple s7;
+	s7=algo4(test_case7,sizeofarray7);
+	printf("\n%d %d %d\n\n", s7.lowIndex, s7.highIndex,s7.sum);
+
+	//test case 8:
+	int test_case8[9]= {-2, 1,-3, 4, -1,2, 1,-5, 4};
+	int sizeofarray8 = sizeof(test_case8)/sizeof(int);
+	struct tuple s8;
+	s8=algo4(test_case8,sizeofarray8);
+	printf("\n%d %d %d\n\n", s8.lowIndex, s8.highIndex,s8.sum);
+
+	//test case 9:
+	int test_case9[4]= {-1.3, 2.77, -2, 12.8 };
+	int sizeofarray9 = sizeof(test_case9)/sizeof(int);
+	struct tuple s9;
+	s9=algo4(test_case1,sizeofarray9);
+	printf("\n%d %d %d\n\n", s9.lowIndex, s9.highIndex,s9.sum);
+
+	//test case 10:
+	int test_case10[3]= {-1, -3,-5};
+	int sizeofarray10 = sizeof(test_case10)/sizeof(int);
+	struct tuple s10;
+	s10=algo4(test_case10,sizeofarray10);
+	printf("\n%d %d %d\n\n", s10.lowIndex, s10.highIndex,s10.sum);
+
+
 	for (k=0; k<10; k++)
 	{
 		int t=0;
