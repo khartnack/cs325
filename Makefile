@@ -33,7 +33,6 @@ test1:
 	./maxsub 9000 algo1
 	./maxsub 10000 algo1
 
-test1out: test1>test1.out
 
 
 test2: 
@@ -57,7 +56,6 @@ test2:
 	./maxsub 9000 algo2
 	./maxsub 10000 algo2
 
-test2out: test2>test2.out
 
 test3: 
 	./maxsub 100 algo3
@@ -80,7 +78,6 @@ test3:
 	./maxsub 9000 algo3
 	./maxsub 10000 algo3
 
-test3out: test3>test3.out
 
 test4: 
 	./maxsub 100 algo4
@@ -103,9 +100,8 @@ test4:
 	./maxsub 9000 algo4
 	./maxsub 10000 algo4
 
-test4out: test4>test4.out
-
 testcase:  
+	rm -f algo1.txt algo2.txt algo3.txt algo4.txt MMS_file.ar MMS_Results.txt
 	./maxsub 10 testcase algo4>algo4.txt	
 	./maxsub 10 testcase algo3>algo3.txt
 	./maxsub 10 testcase algo2>algo2.txt
