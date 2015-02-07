@@ -20,6 +20,7 @@ CS325 - W2015
 #include <errno.h>
 #include <unistd.h>
 
+//reference: http://cboard.cprogramming.com/c-programming/63552-read-numbers-file.html
 
 int main(int argc, char **argv)
 {
@@ -35,32 +36,12 @@ int main(int argc, char **argv)
     	
  	else
 	{
-   		do
+   		while(c!=EOF)
     		{
        			c=fgetc(fp);
-       		 	if(c==' ' || c=='\n')
-			        continue;
-       			 printf("%c",c);
-    		}while(c!=EOF);   
-	}
-getchar();
+			if((c >= '0' && c <= '9') ||  (c == ',') || (c == '[') || (c == ']') || (c == '\n'))
+	       			 printf("%c",c);    		}   
+		}
 
-
-
-
-/*	int file_size;
-	int cur_count;
-	char in_fd;
-	char ch;
-	in_fd = open(filename, O_RDONLY);  //opens the archive
-	file_size = lseek(in_fd, -1, SEEK_END) + 1; //from reverse.c program in clas
-	cur_count = lseek(in_fd, 0, SEEK_SET); //go past the arch text at beginning
-	void *buffer = 1024;
-	while(cur_count < file_size)
-	{
-		read(in_fd, buffer, sizeof(file_size));
-		printf("%s", buffer);
-
-	}
-	close(in_fd);*/
+//	close(filename);
 }
