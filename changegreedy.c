@@ -57,6 +57,7 @@ int main(int argc, char **argv)
 			{
 				fscanf(fp,"%d%c", &data, &ch);
 				array[count++] = data;
+				//array[count] holds the array of change to use to calculate change
 			}
 			array_size = count;
 			count = 0;
@@ -64,27 +65,35 @@ int main(int argc, char **argv)
 		else
 		{
 			fscanf(fp,"%d%c", &change, &ch);
-			coin_array[0] = change;
-		//}
-		chamt = coin_array[0];
-		int coin_count;
-		for(i=(array_size-1); i>=0; i--)
-		{
-			coin_count=0;
-			array2[i]=0;
-			while((array[i]<=chamt)&&(chamt>0)&& array_size>0)
+			coin_array[0] = change;   //HOLDS THE # TO CALCULATE CHANGE
+			chamt = coin_array[0];
+
+
+//Greedy Algorithm starts here 
+
+			
+			int coin_count;
+			for(i=(array_size-1); i>=0; i--)
 			{
-				chamt = chamt - array[i];
-				coin_count++;
-				array2[i]=coin_count;
-			}
+				coin_count=0;
+				array2[i]=0;
+				while((array[i]<=chamt)&&(chamt>0)&& array_size>0)
+				{
+					chamt = chamt - array[i];
+					coin_count++;
+					array2[i]=coin_count;
+				}
+
 			run_total = run_total + coin_count;
-		}
+			}
 
 
+//Prints to file the array with totals per coin and the minimum # of coins
+//The coins coints are stored in array2
+//The min # of coins is in run_total
 
-	 
 			fprintf(outfp, "[");
+
 			for(i=0;i<array_size;i++)
 			{
 				if(i<(array_size - 1))
