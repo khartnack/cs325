@@ -42,31 +42,25 @@ int main(int argc, char **argv)
         if(capacity==count)
             array=(int*)realloc(array, sizeof(int)*(capacity*=2));
         array[count++] = data;
-	
         if(ch == '\n'){
             ++row;
             if(col == 0){
                 col = c;
-            //} else if(col != c){
-            //    fprintf(stderr, "format error of different Column of Row at %d\n", row);
-            //    goto exit;
             }
             c = 0;
-      //  } else if(ch != ','){
-       //     fprintf(stderr, "format error of different separator(%c) of Row at %d \n", ch, row);
-        //    goto exit;
         }
     }
     {   //check print
         int i,j;
-//      int (*matrix)[col]=array;
         for(i=0;i<row;++i){
             for(j=0;j<col;++j)
                 printf("%d ", array[i*col + j]);//matrix[i][j]
             printf("\n");
         }
     }
-exit:
+
+//	exit;
+//exit:
     fclose(fp);
     free(array);
     return 0;
