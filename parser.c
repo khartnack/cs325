@@ -44,33 +44,31 @@ int main(int argc, char **argv)
 	{
    		while(c!=EOF)
     		{
-			int i = 0;
+ 
        			c=fgetc(fp);
 			if (c=='[')
 			{
-				//c=fgetc(fp);
-				//printf("%c, ",c);  
 				while(ch!=']')
 				{
 					inc=fscanf(fp,"%d%c", &data, &ch);
 				        array[count++] = data;			
 				
 				}
-	
-			}   
-			if (c=='\n')   
+			
+ 			}
+			//if (c=='\n')   
+			else
 			{
 				fscanf(fp,"%d%c", &change, &ch);
-				printf("change: %c",change);
-
 			}
+			int k;		
+			for(k=0; k<count; k++)    
+			{
+				printf("%d ", array[k]);
+			}
+			printf("change: %c",change);
 
-		int k;		
-		for(k=0; k<count; k++)    
-		{
-			printf("%d", array[k]);
-		}
-		i=0;
+
 	}
 
 	}
