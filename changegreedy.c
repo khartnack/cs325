@@ -71,10 +71,13 @@ int main(int argc, char **argv)
 			printf("[");
 			for(i=0;i<array_size;i++)
 			{
-				printf("%d,", array2[i]);
+				if(i<(array_size - 1))
+					printf("%d,", array2[i]);
+				else
+					printf("%d", array2[i]);
 			}
 			printf("]\n");
-
+			printf("total\n");
 		}
 	}
 
