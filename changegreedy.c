@@ -59,21 +59,21 @@ int main(int argc, char **argv)
 			for(i=(array_size-1); i>=0; i--)
 			{	
 				coin_count=0;
-				while((array[i]<=chamt)&&(chamt>0))
+				while((array[i]<=chamt)&&(chamt>0)&& array_size>0)
 				{
 					chamt = chamt - array[i];
 					//printf("ch amt: %d ",chamt);
 					coin_count++;
 					array2[i]=coin_count;	
-					printf("coint ocunt: %d ",array2[i]);
+					//printf("%d",array2[i]);
 				}
 			}
-			printf("\n");
+			printf("[");
 			for(i=0;i<array_size;i++)
 			{
-				printf("Array: %d\n", array2[i]);
+				printf("%d,", array2[i]);
 			}
-
+			printf("]\n");
 
 		}
 	}
