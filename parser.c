@@ -21,60 +21,47 @@ CS325 - W2015
 #include <unistd.h>
 
 //reference: http://cboard.cprogramming.com/c-programming/63552-read-numbers-file.html
+//http://stackoverflow.com/questions/10709804/read-comma-separated-numbers-from-a-file-in-c
+
+#include <stdio.h>
+#include <stdlib.h>
+
 
 int main(int argc, char **argv)
 {
-        char c;
-	char ch;
-	int data;
-	int change;
-	int inc;
-        FILE *fp;
-	char *filename = argv[1];
-	char array[1000];
-	char coin_array[1];
-	int count = 0;
+    FILE *fp;
+    int data,row,col,c,count,inc;
+    int *array, capacity=10;
+    char ch;
+    array=(int*)malloc(sizeof(int)*capacity);
+    char *filename = argv[1];
+    fp=fopen(filename,"r");
+    row=col=c=count=0;
+    while(EOF!=(inc=fscanf(fp,"%d%c", &data, &ch)) && inc == 2){
+        ++c;//COLUMN count
+        if(capacity==count)
+            array=(int*)realloc(array, sizeof(int)*(capacity*=2));
+        array[count++] = data;
+        if(ch == '\n'){
+            ++row;
+            if(col == 0){
+                col = c;
+            }
+            c = 0;
+        }
+    }
+    {   //check print
+        int i,j;
+        for(i=0;i<row;++i){
+            for(j=0;j<col;++j)
+                printf("%d ", array[i*col + j]);//matrix[i][j]
+            printf("\n");
+        }
+    }
 
-        if((fp=fopen(filename,"r"))==NULL)
-        {
-                printf("cannot open the file");
-                exit(1);
-	}
-    	else
-
-	{
-   		while(c!=EOF)
-    		{
- 
-       			c=fgetc(fp);
-			if (c=='[')
-			{
-				while(ch!=']')
-				{
-					inc=fscanf(fp,"%d%c", &data, &ch);
-				        array[count++] = data;	
-									
-				}
-			
- 			}
-
-		else
-			{
-				fscanf(fp,"%d%c", &change, &ch);
-				coin_array[0] = change;
-			}
-
-			int k;		
-			for(k=0; k<count; k++)    
-			{
-				printf("%d ", array[k]);
-			}
-			printf("\n");
-			count = 0;
-			if (coin_array[0]>0)
-				printf("\n%d\n",coin_array[0]);
-		}
-
-
-	}
+//	exit;
+//exit:
+    fclose(fp);
+    free(array);
+    return 0;
 }
