@@ -57,7 +57,8 @@ int main(int argc, char **argv)
 				}
 			
  			}
-			if (c=='-')
+
+		else
 			{
 				fscanf(fp,"%d%c", &change, &ch);
 				coin_array[0] = change;
@@ -68,10 +69,10 @@ int main(int argc, char **argv)
 			{
 				printf("%d ", array[k]);
 			}
+			printf("\n");
 			count = 0;
-			printf("change: %d",coin_array[0]);
-
-
+			if (coin_array[0]>0)
+				printf("\n%d\n",coin_array[0]);
 		}
 
 
