@@ -31,7 +31,8 @@ int main(int argc, char **argv)
 	int inc;
         FILE *fp;
 	char *filename = argv[1];
-	char array[10000];
+	char array[1000];
+	char coin_array[1];
 	int count = 0;
 
         if((fp=fopen(filename,"r"))==NULL)
@@ -51,25 +52,28 @@ int main(int argc, char **argv)
 				while(ch!=']')
 				{
 					inc=fscanf(fp,"%d%c", &data, &ch);
-				        array[count++] = data;			
-				
+				        array[count++] = data;	
+									
 				}
 			
  			}
-			//if (c=='\n')   
-			else
+			if (c=='-')
 			{
 				fscanf(fp,"%d%c", &change, &ch);
+				coin_array[0] = change;
 			}
+
 			int k;		
 			for(k=0; k<count; k++)    
 			{
 				printf("%d ", array[k]);
 			}
-			printf("change: %c",change);
+			count = 0;
+			printf("change: %d",coin_array[0]);
 
 
-	}
+		}
+
 
 	}
 }
