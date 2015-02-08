@@ -27,6 +27,7 @@ int main(int argc, char **argv)
         char c;
 	char ch;
 	int data;
+	int change;
 	int inc;
         FILE *fp;
 	char *filename = argv[1];
@@ -54,26 +55,23 @@ int main(int argc, char **argv)
 					inc=fscanf(fp,"%d%c", &data, &ch);
 				        array[count++] = data;			
 				
-			}
+				}
+	
 			}   
 			if (c=='\n')   
 			{
-				c=fgetc(fp);
-				printf("change: %c",c);
-				while(c >= '0' && c <= '9')
-				{
-					c=fgetc(fp);
-					printf("%c\n",c);
-				}
-				i=0;
+				fscanf(fp,"%d%c", &change, &ch);
+				printf("change: %c",change);
+
 			}
 
+		int k;		
+		for(k=0; k<count; k++)    
+		{
+			printf("%d", array[k]);
 		}
-	while(count>0)
-	{
-		printf("%d", array[count-1]);
-		count--;
-	}
+		i=0;
 	}
 
+	}
 }
