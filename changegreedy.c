@@ -55,13 +55,14 @@ int main(int argc, char **argv)
 				coin_array[0] = change;
 			}
 			chamt = coin_array[0];
-			int coin_count=0;
+			int coin_count;
 			for(i=(array_size-1); i>=0; i--)
 			{	
+				coin_count=0;
 				while((array[i]<=chamt)&&(chamt>0))
 				{
 					chamt = chamt - array[i];
-					printf("ch amt: %d ",chamt);
+					//printf("ch amt: %d ",chamt);
 					coin_count++;
 					array2[i]=coin_count;	
 					printf("coint ocunt: %d ",array2[i]);
@@ -70,7 +71,7 @@ int main(int argc, char **argv)
 			printf("\n");
 			for(i=0;i<array_size;i++)
 			{
-				//printf("%d", array2[i]);
+				printf("Array: %d\n", array2[i]);
 			}
 
 
