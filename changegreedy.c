@@ -35,6 +35,11 @@ int main(int argc, char **argv)
 	int run_total=0;
 	char array2[1000];
 
+	if((outfp=fopen("tester.txt","w"))==NULL)
+	{
+			printf("cannot open the file");
+			exit(1);
+	}
 
 	if((fp=fopen(filename,"r"))==NULL)
 	{
@@ -76,14 +81,9 @@ int main(int argc, char **argv)
 			run_total = run_total + coin_count;
 		}
 
-		if((outfp=fopen("tester.txt","w"))==NULL)
-		{
-			printf("cannot open the file");
-			exit(1);
-		}
 
-		else
-		{
+
+	 
 			fprintf(outfp, "[");
 			for(i=0;i<array_size;i++)
 			{
@@ -95,7 +95,7 @@ int main(int argc, char **argv)
 
 			fprintf(outfp,"]\n");
 			fprintf(outfp,"%d\n", run_total);
-		}
+		 
 		}
 		}
 	}
