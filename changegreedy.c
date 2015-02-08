@@ -58,17 +58,20 @@ int main(int argc, char **argv)
 			int coin_count=0;
 			for(i=(array_size-1); i>=0; i--)
 			{	
-				if((array[i]<=chamt)&&(chamt>0))
+				while((array[i]<=chamt)&&(chamt>0))
 				{
 					chamt = chamt - array[i];
+					printf("ch amt: %d ",chamt);
 					coin_count++;
 					array2[i]=coin_count;	
+					printf("coint ocunt: %d ",array2[i]);
 				}
-				run_total=run_total+coin_count;
-				coin_count =0;
 			}
-			run_total=0;
-				printf("%d",run_total);
+			printf("\n");
+			for(i=0;i<array_size;i++)
+			{
+				//printf("%d", array2[i]);
+			}
 
 
 		}
