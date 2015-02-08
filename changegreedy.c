@@ -7,6 +7,7 @@ CS325 - W2015
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 //reference: http://cboard.cprogramming.com/c-programming/63552-read-numbers-file.html
 
 int main(int argc, char **argv)
@@ -16,7 +17,15 @@ int main(int argc, char **argv)
 	int data;
 	int change;
 	FILE *fp;
+	FILE *outfp;
 	char *filename = argv[1];
+
+	char *outfilename = argv[1];
+	char changetext[] = "change";
+//	outfilename = strcat(outfilename,changetext);
+	printf("%c", *outfilename);
+
+
 	char array[1000];
 	char coin_array[1];
 	int count = 0;
@@ -25,6 +34,8 @@ int main(int argc, char **argv)
 	int i = 0;
 	int run_total=0;
 	char array2[1000];
+
+
 	if((fp=fopen(filename,"r"))==NULL)
 	{
 		printf("cannot open the file");
@@ -65,17 +76,26 @@ int main(int argc, char **argv)
 			run_total = run_total + coin_count;
 		}
 
-		printf("[");
-		for(i=0;i<array_size;i++)
+		if((outfp=fopen("tester.txt","w"))==NULL)
 		{
-			if(i<(array_size - 1))
-				printf("%d,", array2[i]);
-			else
-				printf("%d", array2[i]);
+			printf("cannot open the file");
+			exit(1);
 		}
 
-		printf("]\n");
-		printf("%d\n", run_total);
+		else
+		{
+			fprintf(outfp, "[");
+			for(i=0;i<array_size;i++)
+			{
+				if(i<(array_size - 1))
+					fprintf(outfp,"%d,", array2[i]);
+				else
+					fprintf(outfp,"%d", array2[i]);
+			}
+
+			fprintf(outfp,"]\n");
+			fprintf(outfp,"%d\n", run_total);
+		}
 		}
 		}
 	}
