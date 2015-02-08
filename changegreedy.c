@@ -27,7 +27,8 @@ int main(int argc, char **argv)
 	int chamt;
 	int array_size;
 	int i = 0;
-	int run_total;
+	int run_total=0;
+	char array2[1000];
 
         if((fp=fopen(filename,"r"))==NULL)
         {
@@ -54,11 +55,22 @@ int main(int argc, char **argv)
 				coin_array[0] = change;
 			}
 			chamt = coin_array[0];
+			int coin_count=0;
 			for(i=(array_size-1); i>=0; i--)
 			{	
-				if(array[i]<chamt)
-					printf("lessthan!");	
+				if((array[i]<=chamt)&&(chamt>0))
+				{
+					chamt = chamt - array[i];
+					coin_count++;
+					array2[i]=coin_count;	
+				}
+				run_total=run_total+coin_count;
+				coin_count =0;
 			}
+			run_total=0;
+				printf("%d",run_total);
+
+
 		}
 	}
 
