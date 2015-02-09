@@ -1,5 +1,5 @@
 /*
-David Crisman<
+David Crisman
 Garrett Genz
 Kathleen Beltramini
 CS325 - W2015
