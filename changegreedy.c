@@ -90,8 +90,8 @@ int main(int argc, char **argv)
 
 	if((outfp=fopen(outfilename,"w"))==NULL)
 	{
-			printf("cannot open the file");
-			exit(1);
+		printf("cannot open the file");
+		exit(1);
 	}
 
 	if((fp=fopen(filename,"r"))==NULL)
@@ -102,31 +102,30 @@ int main(int argc, char **argv)
 	
 	else
 	{
-	while(EOF!=(c=fgetc(fp)))
-	{
-		if (c=='[')
+		while(EOF!=(c=fgetc(fp)))
 		{
-			while(ch!=']')
+			if (c=='[')
 			{
-				fscanf(fp,"%d%c", &data, &ch);
-				array[count++] = data;
-				//array[count] holds the array of change to use to calculate change
+				while(ch!=']')
+				{
+					fscanf(fp,"%d%c", &data, &ch);
+					array[count++] = data;
+					//array[count] holds the array of change to use to calculate change
+				}
+				array_size = count;
+				count = 0;
 			}
-			array_size = count;
-			count = 0;
-		}
-		else
-		{
-			fscanf(fp,"%d%c", &change, &ch);
-			coin_array[0] = change;   //HOLDS THE # TO CALCULATE CHANGE
-			chamt = coin_array[0];
+			else
+			{
+				fscanf(fp,"%d%c", &change, &ch);
+				coin_array[0] = change;   //HOLDS THE # TO CALCULATE CHANGE
+				chamt = coin_array[0];
 
 
-//Greedy Algorithm starts here 
-			gettimeofday(&start, NULL);
+			//Greedy Algorithm starts here 
+				gettimeofday(&start, NULL);
 			
-			
-			int coin_count; for(i=(array_size-1); i>=0; i--) {
+				int coin_count; for(i=(array_size-1); i>=0; i--) {
 				coin_count=0;
 				array2[i]=0;
 				while((array[i]<=chamt)&&(chamt>0)&& array_size>0)
@@ -136,7 +135,7 @@ int main(int argc, char **argv)
 					array2[i]=coin_count;
 				}
 
-			run_total = run_total + coin_count;
+				run_total = run_total + coin_count;
 			}
 
 			gettimeofday(&end, NULL);
@@ -160,8 +159,7 @@ int main(int argc, char **argv)
 			fprintf(outfp,"]\n");
 			fprintf(outfp,"%d\n", run_total);
 			run_total = 0;		 
-
-		}
+			}
 		}
 	}
 }
