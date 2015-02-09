@@ -56,5 +56,7 @@ times_cdp1_10_25_50.txt (for coins 1,10,25, 50)
 times_cdp1_3_4.txt (for coins 1,3,4)
 
 
+4) To run your own tests, you can run ./changegreedy [filename].txt.  The output will go to  [filename]change.txt.
+Please note that the input files should follow the spec exactly in order to be parsed correctly - no additional spaces or lines are allowed.
 
 
