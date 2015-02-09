@@ -51,7 +51,7 @@ int main(int argc, char **argv)
 	struct timeval start, end, result;
 	char c;
 	char ch;
-	int data;
+	int data = 99999;
 	int change;
 	FILE *fp;
 	FILE *outfp;
@@ -120,24 +120,30 @@ int main(int argc, char **argv)
 			{
 				fscanf(fp,"%d%c", &change, &ch);
 				coin_array[0] = change;   //HOLDS THE # TO CALCULATE CHANGE
-				chamt = coin_array[0];
-
+				chamt = change;
+				//chamt = coin_array[0];
+				printf("change: %d %d %d", change, coin_array[0], chamt);
 
 			//Greedy Algorithm starts here 
 				gettimeofday(&start, NULL);
 			
-				int coin_count; for(i=(array_size-1); i>=0; i--) {
-				coin_count=0;
-				array2[i]=0;
-				while((array[i]<=chamt)&&(chamt>0)&& array_size>0)
+				int coin_count; 
+				for(i=(array_size-1); i>=0; i--) 
 				{
-					chamt = chamt - array[i];
-					coin_count++;
-					array2[i]=coin_count;
-				}
+					coin_count=0;
+					array2[i]=0;
+					while((array[i]<=chamt)&&(chamt>0)&& array_size>0)
+					{
+						chamt = chamt - array[i];
+						coin_count++;
+						array2[i]=coin_count;
+						//printf(" %d ", coin_count);
+					}
 
 				run_total = run_total + coin_count;
-			}
+				if (chamt==0)
+					i=0;
+				}
 
 			gettimeofday(&end, NULL);
 			timeval_subtract(&result, &end, &start);
