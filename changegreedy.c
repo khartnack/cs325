@@ -2,8 +2,9 @@
 David Crisman
 Garrett Genz
 Kathleen Beltramini
-Project Group 6
 CS325 - W2015
+Project Group 6
+Project 2
 */
 #include <stdio.h>
 #include <stdlib.h>
