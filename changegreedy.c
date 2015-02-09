@@ -52,7 +52,6 @@ int main(int argc, char **argv)
 	char c;
 	char ch;
 	int data = 0;
-//	int data = 99999;
 	int change;
 	FILE *fp;
 	FILE *outfp;
@@ -81,7 +80,6 @@ int main(int argc, char **argv)
 		m++;
 	}
 	int array[1000];
-	//char array[1000];
 	int coin_array[1];
 	int count = 0;
 	int chamt;
@@ -89,7 +87,6 @@ int main(int argc, char **argv)
 	int i = 0;
 	int run_total=0;
 	int array2[1000];
-	//char array2[1000];
 
 	if((outfp=fopen(outfilename,"w"))==NULL)
 	{
@@ -112,7 +109,6 @@ int main(int argc, char **argv)
 				while(ch!=']')
 				{
 					fscanf(fp,"%d%c", &data, &ch);
-					//count = count+1;
 					array[count++] = data;
 					//array[count] holds the array of change to use to calculate change
 				}
@@ -124,7 +120,6 @@ int main(int argc, char **argv)
 				fscanf(fp,"%d%c", &change, &ch);
 				coin_array[0] = change;   //HOLDS THE # TO CALCULATE CHANGE
 				chamt = change;
-				//chamt = coin_array[0];
 
 			//Greedy Algorithm starts here 
 				gettimeofday(&start, NULL);
