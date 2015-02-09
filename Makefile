@@ -1,38 +1,40 @@
-
 CC=gcc
 DEBUG=-g
-CFLAGS=$(DEBUG) -Wall -std=c99
-PROGS=algo4
+CFLAGS=$(DEBUG) -Wall -std=c99 -lm
+PROGS=changegreedy #changeslow changedp
 
 all: $(PROGS)
 
-algo4: algo4.o
-	$(CC) $(CFLAGS) -o algo4 algo4.o
+changegreedy: changegreedy.o
+	$(CC) $(CFLAGS) -o changegreedy changegreedy.o
 
-algo4.o: algo4.c
-	$(CC) $(CFLAGS) -c algo4.c
+changegreedy.o: changegreedy.c
+	$(CC) $(CFLAGS) -c changegreedy.c
 
-test: 
-	./algo4 100
-	./algo4 200
-	./algo4 300
-	./algo4 400
-	./algo4 500
-	./algo4 600
-	./algo4 700
-	./algo4 800
-	./algo4 900
-	./algo4 1000
-	./algo4 2000
-	./algo4 3000
-	./algo4 4000
-	./algo4 5000
-	./algo4 6000
-	./algo4 7000
-	./algo4 8000
-	./algo4 9000
-	./algo4 10000
+test_cg: 
+	./changegreedy test_file1.txt>times_cg1_10_25_50.txt
+	./changegreedy test_file2.txt>times_cg1_2_4.txt
 
+test_dp: 
+	./changedp test_file1.txt>times_cdp1_10_25_50.txt
+	./changedp test_file2.txt>times_cdp1_2_4.txt
+
+test_slow: 
+	./changeslow test_file1.txt>times_slow1_10_25_50.txt
+	./changeslow test_file2.txt>times_slow1_2_4.txt
+
+
+#changedp: changedp.o
+#	$(CC) $(CFLAGS) -o changedp changedp.o
+
+#changedp.o: changedp.c
+#	$(CC) $(CFLAGS) -c changedp.c
+
+#changeslow: changeslow.o
+#	$(CC) $(CFLAGS) -o changeslow changeslow.o
+
+#changeslow.o: changeslow.c
+#	$(CC) $(CFLAGS) -c changeslow.c
 
 clean:
-	rm -f $(PROGS) *.o *~ *#
+	rm -f $(PROGS) *.o *~ *#  times_cg1_10_25_50.txt  times_cg1_2_4.txt *change.txt
