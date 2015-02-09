@@ -45,4 +45,4 @@ test_all:  test_cg test_dp test_slow
 #	$(CC) $(CFLAGS) -c changeslow.c
 
 clean:
-	rm -f $(PROGS) *.o *~ *#  times_cg1_10_25_50.txt  times_cg1_2_4.txt *change.txt
+	rm -f $(PROGS) *.o *~ *#  times_cg1_10_25_50.txt  times_cg1_3_4.txt *change.txt times_slow1_10_25_50.txt  times_slow1_3_4.txt times_cdp1_10_25_50.txt  times_cdp1_3_4.txt
