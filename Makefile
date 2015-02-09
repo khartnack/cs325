@@ -12,14 +12,20 @@ changegreedy.o: changegreedy.c
 	$(CC) $(CFLAGS) -c changegreedy.c
 
 test_cg: 
+	rm -f times_cg1_10_25_50.txt
+	rm -f times_cg1_2_4.txt
 	./changegreedy test_file1.txt>times_cg1_10_25_50.txt
 	./changegreedy test_file2.txt>times_cg1_2_4.txt
 
 test_dp: 
+	rm -f times_cdp1_10_25_50.txt
+	rm -f times_cdp1_2_4.txt
 	./changedp test_file1.txt>times_cdp1_10_25_50.txt
 	./changedp test_file2.txt>times_cdp1_2_4.txt
 
 test_slow: 
+	rm -f times_slow1_10_25_50.txt
+	rm -f times_slow1_2_4.txt
 	./changeslow test_file1.txt>times_slow1_10_25_50.txt
 	./changeslow test_file2.txt>times_slow1_2_4.txt
 
