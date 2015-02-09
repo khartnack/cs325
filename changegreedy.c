@@ -159,7 +159,8 @@ int main(int argc, char **argv)
 
 			fprintf(outfp,"]\n");
 			fprintf(outfp,"%d\n", run_total);
-		 
+			run_total = 0;		 
+
 		}
 		}
 	}
