@@ -52,16 +52,17 @@ void timeval_subtract (result, x, y)
 int main(int argc, char **argv)
 {
 	struct timeval start, end, result;
-	char c;
-	char ch;
-	int data = 0;
-	int change;
-	FILE *fp;
-	FILE *outfp;
-	char *filename = argv[1];
-	char outfilename[255];
-	int len = strlen(filename);
+	char c; //used to get characters out of input file
+	char ch; //holds comma
+	int data = 0; //will hold coin type values
+	int change; //holds change required to change from input file
+	FILE *fp; //input file that is opened to read
+	FILE *outfp;  //holds output file that is opened to write to
+	char *filename = argv[1];  //holds input file name provided by command line
+	char outfilename[255];  //holds output file that is created by filenamechange.txt
+	int len = strlen(filename);  //length of filename
 	int m;
+	//changes the outfile name so that it has filenamechange.txt
 	for(m=0; m<(len-4); m++)
 	{
 		outfilename[m]=filename[m];
@@ -82,14 +83,13 @@ int main(int argc, char **argv)
 		outfilename[m]=0;
 		m++;
 	}
-	int array[1000];
-	int coin_array[1];
+	int array[1000];  //assumes no more than 1000 coins
 	int count = 0;
-	int chamt;
+	int chamt; //holds change amount left to calculate
 	int array_size;
 	int i = 0;
-	int run_total=0;
-	int array2[1000];
+	int run_total=0;  //holds running total of the sum of coins to use for change
+	int array2[1000]; //assumes no more than 1000 coins
 
 	if((outfp=fopen(outfilename,"w"))==NULL)
 	{
@@ -105,30 +105,28 @@ int main(int argc, char **argv)
 	
 	else
 	{
-		while(EOF!=(c=fgetc(fp)))
+		while(EOF!=(c=fgetc(fp)))  //reads in the file to parse the array of coins and change required
 		{
-			if (c=='[')
+			if (c=='[') 
 			{
 				while(ch!=']')
 				{
-					fscanf(fp,"%d%c", &data, &ch);
-					array[count++] = data;
-					//array[count] holds the array of change to use to calculate change
+					fscanf(fp,"%d%c", &data, &ch);  //scans in the array of coin values
+					array[count++] = data;  //array[count] holds the array of change to use to calculate change
 				}
-				array_size = count;
-				count = 0;
+				array_size = count;  //holds the size of the array with coins & will increase as values read in
+				count = 0;  //resets count to 0 for when multiple arrays in file
 			}
 			else
 			{
-				fscanf(fp,"%d%c", &change, &ch);
-				coin_array[0] = change;   //HOLDS THE # TO CALCULATE CHANGE
-				chamt = change;
+				fscanf(fp,"%d%c", &change, &ch);  //reads in the value of the change to be calculated
+				chamt = change;   //sets chamt to change for use in the algorithms
 
 			//Greedy Algorithm starts here 
-				gettimeofday(&start, NULL);
+				gettimeofday(&start, NULL);  //times the algorithm
 			
 				int coin_count; 
-				for(i=(array_size-1); i>=0; i--) 
+				for(i=(array_size-1); i>=0; i--)  //goes through the array of coins starting with the largest size 
 				{
 					coin_count=0;
 					array2[i]=0;
@@ -139,12 +137,12 @@ int main(int argc, char **argv)
 						array2[i]=coin_count;
 					}
 
-				run_total = run_total + coin_count;
+				run_total = run_total + coin_count; //holds the number of coins
 				}
 
-			gettimeofday(&end, NULL);
-			timeval_subtract(&result, &end, &start);
-			printf("%d, %ld.%06ld\n",change, result.tv_sec, result.tv_usec);
+			gettimeofday(&end, NULL);  //stops the time clock for algorithm 
+			timeval_subtract(&result, &end, &start);  //measures the difference in time
+			printf("%d, %ld.%06ld\n",change, result.tv_sec, result.tv_usec);  //prints to screen the time results
 
 //Prints to file the array with totals per coin and the minimum # of coins
 //The coins coints are stored in array2
@@ -162,7 +160,7 @@ int main(int argc, char **argv)
 
 			fprintf(outfp,"]\n");
 			fprintf(outfp,"%d\n", run_total);
-			run_total = 0;		 
+			run_total = 0; //resets in case multiple arrays in file
 			}
 		}
 	}
