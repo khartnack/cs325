@@ -8,7 +8,9 @@ Project 2
 */
 
 ASSUMPTIONS:
+
 1) The input files should follow the spec exactly in order to be parsed correctly - no additional spaces or lines are allowed.
+
 2) The coin denominations should work for the value provided that needs change.  For example, you cannot ask for change for 23 and only have 2,4, and 6 as the 
 coins.
 
