@@ -22,7 +22,10 @@ Project 2
 #include <dirent.h>
 #include <math.h>     
 #include <limits.h>
+
 //reference: http://cboard.cprogramming.com/c-programming/63552-read-numbers-file.html
+//http://stackoverflow.com/questions/6074279/how-to-use-fprintf-for-writing-data-to-a-file
+//http://stackoverflow.com/questions/10709804/read-comma-separated-numbers-from-a-file-in-c
 
 void timeval_subtract (result, x, y)
      struct timeval *result, *x, *y;
