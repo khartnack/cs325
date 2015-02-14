@@ -1,5 +1,5 @@
 CFLAGS=$(DEBUG) -Wall -std=c99 -lm
-PROGS=changegreedy changeslow #changedp
+PROGS=changegreedy changeslow changedp
 
 all: $(PROGS)
 
