@@ -1,3 +1,5 @@
+CC=gcc
+DEBUG=-g
 CFLAGS=$(DEBUG) -Wall -std=c99 -lm
 PROGS=changegreedy changeslow changedp
 
