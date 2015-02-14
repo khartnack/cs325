@@ -1,7 +1,5 @@
-CC=gcc
-DEBUG=-g
 CFLAGS=$(DEBUG) -Wall -std=c99 -lm
-PROGS=changegreedy #changeslow changedp
+PROGS=changegreedy changeslow #changedp
 
 all: $(PROGS)
 
@@ -10,6 +8,20 @@ changegreedy: changegreedy.o
 
 changegreedy.o: changegreedy.c
 	$(CC) $(CFLAGS) -c changegreedy.c
+
+
+
+changedp: changedp.o
+	$(CC) $(CFLAGS) -o changedp changedp.o
+
+changedp.o: changedp.c
+	$(CC) $(CFLAGS) -c changedp.c
+
+changeslow: changeslow.o
+	$(CC) $(CFLAGS) -o changeslow changeslow.o
+
+changeslow.o: changeslow.c
+	$(CC) $(CFLAGS) -c changeslow.c
 
 test_cg: 
 	rm -f times_cg1_10_25_50.txt
@@ -32,17 +44,6 @@ test_slow:
 test_all:  test_cg test_dp test_slow
 
 
-#changedp: changedp.o
-#	$(CC) $(CFLAGS) -o changedp changedp.o
-
-#changedp.o: changedp.c
-#	$(CC) $(CFLAGS) -c changedp.c
-
-#changeslow: changeslow.o
-#	$(CC) $(CFLAGS) -o changeslow changeslow.o
-
-#changeslow.o: changeslow.c
-#	$(CC) $(CFLAGS) -c changeslow.c
 
 clean:
 	rm -f $(PROGS) *.o *~ *#  times_cg1_10_25_50.txt  times_cg1_3_4.txt *change.txt times_slow1_10_25_50.txt  times_slow1_3_4.txt times_cdp1_10_25_50.txt  times_cdp1_3_4.txt
