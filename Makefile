@@ -1,38 +1,20 @@
-
 CC=gcc
 DEBUG=-g
-CFLAGS=$(DEBUG) -Wall -std=c99
-PROGS=algo4
+CFLAGS=$(DEBUG) -Wall -std=c99 -lm
+PROGS=tsp
 
 all: $(PROGS)
 
-algo4: algo4.o
-	$(CC) $(CFLAGS) -o algo4 algo4.o
+tsp: tsp.o
+	$(CC) $(CFLAGS) -o tsp tsp.o
 
-algo4.o: algo4.c
-	$(CC) $(CFLAGS) -c algo4.c
+tsp.o: tsp.c
+	$(CC) $(CFLAGS) -c tsp.c
 
-test: 
-	./algo4 100
-	./algo4 200
-	./algo4 300
-	./algo4 400
-	./algo4 500
-	./algo4 600
-	./algo4 700
-	./algo4 800
-	./algo4 900
-	./algo4 1000
-	./algo4 2000
-	./algo4 3000
-	./algo4 4000
-	./algo4 5000
-	./algo4 6000
-	./algo4 7000
-	./algo4 8000
-	./algo4 9000
-	./algo4 10000
 
+test_tsp: 
+	rm -f tsp_example_4.txt.tour
+	./tsp tsp_example_4.txt
 
 clean:
-	rm -f $(PROGS) *.o *~ *#
+	rm -f $(PROGS) *.o *~ *#  tsp_example_4.txt
