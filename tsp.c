@@ -31,7 +31,7 @@ struct city {
 	int city_id;
 	int x;
 	int y;
-};
+}city_array[100000];
 
 
 
@@ -61,16 +61,18 @@ int main(int argc, char **argv)
 {
 	struct city new_city;
 	struct timeval start, end, result;
-	char c; //used to get characters out of input file
-	char ch; //holds comma
+	//char c; //used to get characters out of input file
+	//char ch; //holds comma
 	FILE *fp; //input file that is opened to read
 	FILE *outfp;  //holds output file that is opened to write to
 	char *filename = argv[1];  //holds input file name provided by command line
 	char outfilename[255];  //holds output file that is created by filenamechange.txt
 	int len = strlen(filename);  //length of filename
 	int m;
-	int data = 0;
+	//int data = 0;
 	int count = 0;
+	int k=0;
+	//int city_array[100000];
 	//changes the outfile name so that it has filenamechange.txt
 	for(m=0; m<(len); m++)
 	{
@@ -98,14 +100,14 @@ int main(int argc, char **argv)
 		printf("cannot open the file");
 		exit(1);
 	}
-	
-
-
 	else
 	{
 		while(fscanf(fp,"%d %d %d", &new_city.city_id, &new_city.x, &new_city.y)==3)
 		{
-			printf("%d %d %d\n",new_city.city_id, new_city.x, new_city.y);
+			city_array[k].city_id=new_city.city_id;
+			city_array[k].x=new_city.x;
+			city_array[k].y=new_city.y;
+			k++;
 			count++;
 			gettimeofday(&start, NULL);  //times the algorithm
 			//sleep(1);
@@ -114,7 +116,12 @@ int main(int argc, char **argv)
 			//printf(" %ld.%06ld\n",result.tv_sec, result.tv_usec);  //prints to screen the time results
 
 		}
-		fprintf(outfp,"test");
+		for(k=0;k<count; k++)	
+		{
+		    printf("%d %d %d\n", city_array[k].city_id, city_array[k].x, city_array[k].y);
+		    fprintf(outfp, "%d %d %d\n", city_array[k].city_id, city_array[k].x, city_array[k].y);
+		}	
+
 	}
 
 }
