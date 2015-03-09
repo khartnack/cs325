@@ -70,6 +70,7 @@ int main(int argc, char **argv)
 	int len = strlen(filename);  //length of filename
 	int m;
 	int data = 0;
+	int count = 0;
 	//changes the outfile name so that it has filenamechange.txt
 	for(m=0; m<(len); m++)
 	{
@@ -102,11 +103,10 @@ int main(int argc, char **argv)
 
 	else
 	{
-		while(EOF!=(c=fgetc(fp)))  //reads in the file to parse the array of coins and change required
+		while(fscanf(fp,"%d %d %d", &new_city.city_id, &new_city.x, &new_city.y)==3)
 		{
-			fscanf(fp,"%d %d %d", &new_city.city_id, &new_city.x, &new_city.y);
 			printf("%d %d %d\n",new_city.city_id, new_city.x, new_city.y);
-
+			count++;
 			gettimeofday(&start, NULL);  //times the algorithm
 			//sleep(1);
 			gettimeofday(&end, NULL);  //stops the time clock for algorithm 
