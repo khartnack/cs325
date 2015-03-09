@@ -59,6 +59,7 @@ void timeval_subtract (result, x, y)
 
 int main(int argc, char **argv)
 {
+	struct city new_city;
 	struct timeval start, end, result;
 	char c; //used to get characters out of input file
 	char ch; //holds comma
@@ -103,14 +104,14 @@ int main(int argc, char **argv)
 	{
 		while(EOF!=(c=fgetc(fp)))  //reads in the file to parse the array of coins and change required
 		{
-			fscanf(fp,"%d%c", &data, &ch);
-			printf("%d",data);
+			fscanf(fp,"%d %d %d", &new_city.city_id, &new_city.x, &new_city.y);
+			printf("%d %d %d\n",new_city.city_id, new_city.x, new_city.y);
 
 			gettimeofday(&start, NULL);  //times the algorithm
 			//sleep(1);
 			gettimeofday(&end, NULL);  //stops the time clock for algorithm 
 			timeval_subtract(&result, &end, &start);  //measures the difference in time
-			printf(" %ld.%06ld\n",result.tv_sec, result.tv_usec);  //prints to screen the time results
+			//printf(" %ld.%06ld\n",result.tv_sec, result.tv_usec);  //prints to screen the time results
 
 		}
 		fprintf(outfp,"test");
