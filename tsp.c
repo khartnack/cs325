@@ -33,7 +33,7 @@ struct city {
 	int y;
 }city_array[100000];
 
-
+int calc_distance(int ax, int ay, int bx, int by);
 
 void timeval_subtract (result, x, y)
      struct timeval *result, *x, *y;
@@ -72,7 +72,7 @@ int main(int argc, char **argv)
 	//int data = 0;
 	int count = 0;
 	int k=0;
-	//int city_array[100000];
+	int city_dist;
 	//changes the outfile name so that it has filenamechange.txt
 	for(m=0; m<(len); m++)
 	{
@@ -110,11 +110,10 @@ int main(int argc, char **argv)
 			k++;
 			count++;
 			gettimeofday(&start, NULL);  //times the algorithm
-			//sleep(1);
 			gettimeofday(&end, NULL);  //stops the time clock for algorithm 
 			timeval_subtract(&result, &end, &start);  //measures the difference in time
 			//printf(" %ld.%06ld\n",result.tv_sec, result.tv_usec);  //prints to screen the time results
-
+			
 		}
 		for(k=0;k<count; k++)	
 		{
@@ -123,5 +122,14 @@ int main(int argc, char **argv)
 		}	
 
 	}
+	city_dist=calc_distance(city_array[0].x, city_array[0].y, city_array[1].x, city_array[1].y);
+	printf("distance 0 & 1: %d\n", city_dist);
 
+}
+
+int calc_distance(int ax, int ay, int bx, int by)
+{
+	int dist;
+	dist =  sqrt((ax-bx)*(ax - bx) + (ay - by)*(ay-by));
+	return dist;
 }
