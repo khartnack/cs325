@@ -73,6 +73,8 @@ int main(int argc, char **argv)
 	int count = 0;
 	int k=0;
 	int city_dist;
+	int dist_between[100000];
+	int total_dist = 0;
 	//changes the outfile name so that it has filenamechange.txt
 	for(m=0; m<(len); m++)
 	{
@@ -108,22 +110,33 @@ int main(int argc, char **argv)
 			city_array[k].x=new_city.x;
 			city_array[k].y=new_city.y;
 			k++;
-			count++;
-			gettimeofday(&start, NULL);  //times the algorithm
-			gettimeofday(&end, NULL);  //stops the time clock for algorithm 
-			timeval_subtract(&result, &end, &start);  //measures the difference in time
-			//printf(" %ld.%06ld\n",result.tv_sec, result.tv_usec);  //prints to screen the time results
-			
+			count++;			
 		}
+		//just for now, to verify that array is storing data correctly
 		for(k=0;k<count; k++)	
 		{
 		    printf("%d %d %d\n", city_array[k].city_id, city_array[k].x, city_array[k].y);
-		    fprintf(outfp, "%d %d %d\n", city_array[k].city_id, city_array[k].x, city_array[k].y);
 		}	
 
 	}
-	city_dist=calc_distance(city_array[0].x, city_array[0].y, city_array[1].x, city_array[1].y);
-	printf("distance 0 & 1: %d\n", city_dist);
+	gettimeofday(&start, NULL);  //times the algorithm
+	for(k=0;k<count; k++)	
+	{
+		city_dist=calc_distance(city_array[k].x, city_array[k].y, city_array[k+1].x, city_array[k+1].y);
+		printf("distance %d and %d: %d\n", k, (k+1), city_dist);
+		dist_between[k]=city_dist;
+		total_dist = total_dist + city_dist;
+
+	}
+	gettimeofday(&end, NULL);  //stops the time clock for algorithm 
+	timeval_subtract(&result, &end, &start);  //measures the difference in time
+	//printf(" %ld.%06ld\n",result.tv_sec, result.tv_usec);  //prints to screen the time results
+	printf("%d\n", total_dist);
+	fprintf(outfp, "%d\n", total_dist);
+	for(k=0;k<count; k++)	
+		{
+		    fprintf(outfp, "%d\n", k);
+		}
 
 }
 
