@@ -96,7 +96,7 @@ int main(int argc, char **argv)
 	int count = 0;
 	int k=0;
 	int city_dist;
-	static int dist_between[7][7];
+	static int dist_between[7][7]; //will need to use malloc to allocate data for matrix
 /*	int x, y;
 	for(x = 0; x < 1500; x++) 
 	{
