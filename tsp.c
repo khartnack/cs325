@@ -35,6 +35,8 @@ struct city {
 
 int calc_distance(int ax, int ay, int bx, int by);
 
+void *two_opt(void *dist_matrix, int *city_tour, int num_cities);
+
 void timeval_subtract (result, x, y)
      struct timeval *result, *x, *y;
 {
@@ -73,8 +75,18 @@ int main(int argc, char **argv)
 	int count = 0;
 	int k=0;
 	int city_dist;
-	int dist_between[100000];
+	static int dist_between[20000][20000];
+/*	int x, y;
+	for(x = 0; x < 1500; x++) 
+	{
+    		for(y = 0; y < 1500; y++) 
+		{	
+			dist_between[x][y] = 0;
+		}
+	}*/
 	int total_dist = 0;
+	int solution[10000];
+
 	//changes the outfile name so that it has filenamechange.txt
 	for(m=0; m<(len); m++)
 	{
@@ -115,19 +127,28 @@ int main(int argc, char **argv)
 		//just for now, to verify that array is storing data correctly
 		for(k=0;k<count; k++)	
 		{
+		    solution[k]=k;
 		    printf("%d %d %d\n", city_array[k].city_id, city_array[k].x, city_array[k].y);
 		}	
 
 	}
 	gettimeofday(&start, NULL);  //times the algorithm
+	int j;
 	for(k=0;k<count; k++)	
 	{
-		city_dist=calc_distance(city_array[k].x, city_array[k].y, city_array[k+1].x, city_array[k+1].y);
-		printf("distance %d and %d: %d\n", k, (k+1), city_dist);
-		dist_between[k]=city_dist;
-		total_dist = total_dist + city_dist;
-
+		for (j=0; j<count; j++)
+		{
+			city_dist=calc_distance(city_array[k].x, city_array[k].y, city_array[j].x, city_array[j].y);
+			dist_between[j][k]=city_dist;
+			printf("%d\t", dist_between[j][k]);
+			if(j==(count-1))
+			{
+				printf("\n");
+			}
+			//total_dist = total_dist + city_dist;
+		}
 	}
+	two_opt(dist_between, solution, count);
 	gettimeofday(&end, NULL);  //stops the time clock for algorithm 
 	timeval_subtract(&result, &end, &start);  //measures the difference in time
 	//printf(" %ld.%06ld\n",result.tv_sec, result.tv_usec);  //prints to screen the time results
@@ -145,4 +166,12 @@ int calc_distance(int ax, int ay, int bx, int by)
 	int dist;
 	dist =  sqrt((ax-bx)*(ax - bx) + (ay - by)*(ay-by));
 	return dist;
+}
+
+
+//http://www.seas.gwu.edu/~simhaweb/champalg/tsp/tsp.html  reference for 2-OPT implementation
+void *two_opt(void *dist_matrix, int *city_tour, int num_cities)
+{
+	printf("test");
+	return 0;
 }
