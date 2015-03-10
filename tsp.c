@@ -31,11 +31,30 @@ struct city {
 	int city_id;
 	int x;
 	int y;
-}city_array[100000];
+}city_array[2000];
 
 int calc_distance(int ax, int ay, int bx, int by);
+//	two_opt(solution, j, k,total_dist, dist_between);
+//http://www.seas.gwu.edu/~simhaweb/champalg/tsp/tsp.html  reference for 2-OPT implementation
+void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n][m])
+{
+	int j=0;
+	int k=0;
+//	int noChange = 0;
+	int old_tour = total_dist;
+	for(k=0;k<n; k++)	
+	{
+		for (j=0; j<m; j++)
+		{
+			printf("%d\t", dist_matrix[k][j]);
+			if(j==(m-1))
+				printf("\n");
+		}
+	}
+	return 0;
+}
 
-void *two_opt(void *dist_matrix, int *city_tour, int num_cities);
+
 
 void timeval_subtract (result, x, y)
      struct timeval *result, *x, *y;
@@ -61,6 +80,8 @@ void timeval_subtract (result, x, y)
 
 int main(int argc, char **argv)
 {
+	//int n;
+	//int m;
 	struct city new_city;
 	struct timeval start, end, result;
 	//char c; //used to get characters out of input file
@@ -70,12 +91,12 @@ int main(int argc, char **argv)
 	char *filename = argv[1];  //holds input file name provided by command line
 	char outfilename[255];  //holds output file that is created by filenamechange.txt
 	int len = strlen(filename);  //length of filename
-	int m;
+	int z;
 	//int data = 0;
 	int count = 0;
 	int k=0;
 	int city_dist;
-	static int dist_between[20000][20000];
+	static int dist_between[7][7];
 /*	int x, y;
 	for(x = 0; x < 1500; x++) 
 	{
@@ -85,22 +106,22 @@ int main(int argc, char **argv)
 		}
 	}*/
 	int total_dist = 0;
-	int solution[10000];
+	int solution[2000];
 
 	//changes the outfile name so that it has filenamechange.txt
-	for(m=0; m<(len); m++)
+	for(z=0; z<(len); z++)
 	{
-		outfilename[m]=filename[m];
+		outfilename[z]=filename[z];
 	}
-	outfilename[m++]='.';
-	outfilename[m++]='t';
-	outfilename[m++]='o';
-	outfilename[m++]='u';
-	outfilename[m++]='r';
-	while(m<=255)
+	outfilename[z++]='.';
+	outfilename[z++]='t';
+	outfilename[z++]='o';
+	outfilename[z++]='u';
+	outfilename[z++]='r';
+	while(z<=255)
 	{
-		outfilename[m]=0;
-		m++;
+		outfilename[z]=0;
+		z++;
 	}
 
 	if((outfp=fopen(outfilename,"w"))==NULL)
@@ -139,16 +160,14 @@ int main(int argc, char **argv)
 		for (j=0; j<count; j++)
 		{
 			city_dist=calc_distance(city_array[k].x, city_array[k].y, city_array[j].x, city_array[j].y);
-			dist_between[j][k]=city_dist;
-			printf("%d\t", dist_between[j][k]);
-			if(j==(count-1))
-			{
-				printf("\n");
-			}
-			//total_dist = total_dist + city_dist;
+			dist_between[k][j]=city_dist;
 		}
 	}
-	two_opt(dist_between, solution, count);
+
+	j=count;
+	k=count;
+	two_opt(solution, j, k,total_dist, dist_between);
+
 	gettimeofday(&end, NULL);  //stops the time clock for algorithm 
 	timeval_subtract(&result, &end, &start);  //measures the difference in time
 	//printf(" %ld.%06ld\n",result.tv_sec, result.tv_usec);  //prints to screen the time results
@@ -169,9 +188,20 @@ int calc_distance(int ax, int ay, int bx, int by)
 }
 
 
-//http://www.seas.gwu.edu/~simhaweb/champalg/tsp/tsp.html  reference for 2-OPT implementation
-void *two_opt(void *dist_matrix, int *city_tour, int num_cities)
-{
-	printf("test");
-	return 0;
-}
+
+
+/*  Pseudo code for 2 opt
+    1.   T = some starting tour
+    2.   noChange = true
+    3.   repeat
+    4.      for all possible edge-pairs in T
+    5.         T' = tour by swapping end points in edge-pair
+    6.         if T' < T
+    7.             T = T'
+    8.             noChange = false
+    9.             break      // Quit loop as soon as an improvement is found
+    10.        endif
+    11.     endfor
+    12.  until noChange
+    13.  return T
+*/
