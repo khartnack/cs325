@@ -36,7 +36,8 @@ struct city {
 static FILE *outfp;
 
 int calc_distance(int ax, int ay, int bx, int by);
-//	two_opt(solution, j, k,total_dist, dist_between);
+
+
 //http://www.seas.gwu.edu/~simhaweb/champalg/tsp/tsp.html  reference for 2-OPT implementation
 void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n][m])
 {
@@ -45,13 +46,11 @@ void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n
 	int j=0;
 	int w=0;
 	int z=0;
-	//int noChange = 0;
 	int best_dist = total_dist;
 	int new_dist = 0; 
 	int new_total_dist = 0;
 	int new_tour[m];
 	int best_tour[m];
-	//int swap=0;
 	for(i=0;i<m-1; i++)	
 	{
 		for (k=i+1; k<m; k++)
@@ -88,11 +87,9 @@ void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n
 			if(new_total_dist<best_dist)
 			{
 				best_dist = new_total_dist;
-				//fprintf(outfp,"%d\n", best_dist);
 				for(int p=0; p<m; p++)
 				{
 					best_tour[p]=new_tour[p];
-					//fprintf(outfp,"%d\n", best_tour[p]);
 				}
 				
 			}	
@@ -106,18 +103,6 @@ void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n
 	{
 		fprintf(outfp,"%d\n", best_tour[p]);
 	}
-
-
-	/*printf("\nMatrix: for Debugging\n");
-	for(k=0;k<n; k++)	
-	{
-		for (j=0; j<m; j++)
-		{
-			printf("%d\t", dist_matrix[k][j]);
-			if(j==(m-1))
-				printf("\n");
-		}
-	}*/
 	return 0;
 }
 
@@ -155,22 +140,12 @@ int main(int argc, char **argv)
 	char outfilename[255];  //holds output file that is created by filenamechange.txt
 	int len = strlen(filename);  //length of filename
 	int z;
-	//int data = 0;
 	int count = 0;
 	int k=0;
 	int city_dist;
 	//static int dist_between[280][280];
-	/*int x, y;
-	for(x = 0; x < 2000; x++) 
-	{
-    		for(y = 0; y < 2000; y++) 
-		{	
-			dist_between[x][y] = 1;
-		}
-	}*/
 	int total_dist = 0;
 	int solution[2000];
-
 	//changes the outfile name so that it has filenamechange.txt
 	for(z=0; z<(len); z++)
 	{
@@ -245,13 +220,10 @@ int main(int argc, char **argv)
 	{
 		distance[k][k] = 0;
 	}
-	
 		
-	total_dist=INT_MAX;
-	
+	total_dist=INT_MAX;	
 	j=count;
 	k=count;
-	//int *best_tour;
 	two_opt(solution, j, k,total_dist, distance);
 	gettimeofday(&end, NULL);  //stops the time clock for algorithm 
 	timeval_subtract(&result, &end, &start);  //measures the difference in time
