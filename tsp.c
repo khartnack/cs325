@@ -146,12 +146,9 @@ void timeval_subtract (result, x, y)
 
 int main(int argc, char **argv)
 {
-	//int n;
-	//int m;
-	struct city new_city;
 	struct timeval start, end, result;
-	//char c; //used to get characters out of input file
-	//char ch; //holds comma
+	gettimeofday(&start, NULL);  //times the algorithm
+	struct city new_city;
 	FILE *fp; //input file that is opened to read
 	//FILE *outfp;  //holds output file that is opened to write to
 	char *filename = argv[1];  //holds input file name provided by command line
@@ -162,7 +159,7 @@ int main(int argc, char **argv)
 	int count = 0;
 	int k=0;
 	int city_dist;
-	static int dist_between[280][280];
+	//static int dist_between[280][280];
 	/*int x, y;
 	for(x = 0; x < 2000; x++) 
 	{
@@ -219,35 +216,47 @@ int main(int argc, char **argv)
 		}	
 
 	}
-	gettimeofday(&start, NULL);  //times the algorithm
+
 	int j;
-	for(k=0;k<count; k++)	
+	int distance[count][count];
+
+	//Calculate the distance for half of the matrix
+	for(j=0;j<count; j++)
 	{
-		for (j=0; j<count; j++)
+		for(k=j+1; k<count; k++)
 		{
-			city_dist=calc_distance(city_array[k].x, city_array[k].y, city_array[j].x, city_array[j].y);
-			dist_between[k][j]=city_dist;
-			if(k==0)
-			{
-				total_dist = total_dist + city_dist;
-			}
+			distance[j][k] = calc_distance(city_array[j].x, city_array[j].y, city_array[k].x, city_array[k].y);
 		}
+		
 	}
 
+	//Copy the first half to the second half
+	for(k=0;k<count; k++)
+	{
+		for(j=k+1; j<count; j++)
+		{
+			distance[j][k] = distance [k][j];
+		}
+		
+	}
+
+	//Set the diaganol to 0 (the distance from a vertex to itself is 0)
+	for(k=0;k<count; k++)
+	{
+		distance[k][k] = 0;
+	}
+	
+		
+	total_dist=INT_MAX;
+	
 	j=count;
 	k=count;
 	//int *best_tour;
-	two_opt(solution, j, k,total_dist, dist_between);
+	two_opt(solution, j, k,total_dist, distance);
 	gettimeofday(&end, NULL);  //stops the time clock for algorithm 
 	timeval_subtract(&result, &end, &start);  //measures the difference in time
-	//printf(" %ld.%06ld\n",result.tv_sec, result.tv_usec);  //prints to screen the time results
-	printf("%d\n", total_dist);
-	/*fprintf(outfp, "%d\n", total_dist);
-	for(k=0;k<count; k++)	
-		{
-		    fprintf(outfp, "%d\n", k);
-		}*/
-
+	printf(" %ld.%06ld\n",result.tv_sec, result.tv_usec);  //prints to screen the time results
+	
 }
 
 int calc_distance(int ax, int ay, int bx, int by)
