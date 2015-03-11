@@ -36,7 +36,7 @@ struct city {
 int calc_distance(int ax, int ay, int bx, int by);
 //	two_opt(solution, j, k,total_dist, dist_between);
 //http://www.seas.gwu.edu/~simhaweb/champalg/tsp/tsp.html  reference for 2-OPT implementation
-void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n][m])
+int *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n][m])
 {
 	int i=0;
 	int k=0;
@@ -73,38 +73,29 @@ void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n
 			new_total_dist = 0;
 			for(int p=0; p+1<m; p++)
 			{
-				printf("new tour: %d\n", new_tour[p]);
 				w= new_tour[p];
 				z= new_tour[p+1];
 				new_dist=calc_distance(city_array[w].x, city_array[w].y, city_array[z].x, city_array[z].y);
 				new_total_dist = new_total_dist + new_dist;
 			}
-			printf("new total dist : %d\n", new_total_dist);
 			
 			if(new_total_dist<best_dist)
 			{
 				best_dist = new_total_dist;
+				printf("\nBest Tour\n");
 				for(int p=0; p<m; p++)
 				{
 					best_tour[p]=new_tour[p];
-					printf("best_tour: %d\n", best_tour[p]);
+					printf("%d\t", best_tour[p]);
 				}
-				printf("\n");
+				printf("\n  Distance: %d", best_dist);
 			}	
 			
-			//new_dist=calc_distance(city_array[w].x, city_array[w].y, city_array[z].x, city_array[z].y);
-			printf("w z new dist: %d %d %d\n", w, z, best_dist);
 		}
 		
 
 	}
-	/*
-	for(i=0; i<m; i++)
-	{
-		printf("city tour: %d\t%d\n", city_tour[i], new_tour[i]);
-
-	}*/
-
+	printf("\nMatrix: for Debugging\n");
 	for(k=0;k<n; k++)	
 	{
 		for (j=0; j<m; j++)
@@ -114,24 +105,9 @@ void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n
 				printf("\n");
 		}
 	}
-	return 0;
+	return best_tour;
 }
 
-/*  Pseudo code for 2 opt
-    1.   T = some starting tour
-    2.   noChange = true
-    3.   repeat
-    4.      for all possible edge-pairs in T
-    5.         T' = tour by swapping end points in edge-pair
-    6.         if T' < T
-    7.             T = T'
-    8.             noChange = false
-    9.             break      // Quit loop as soon as an improvement is found
-    10.        endif
-    11.     endfor
-    12.  until noChange
-    13.  return T
-*/
 
 void timeval_subtract (result, x, y)
      struct timeval *result, *x, *y;
@@ -247,7 +223,14 @@ int main(int argc, char **argv)
 
 	j=count;
 	k=count;
-	two_opt(solution, j, k,total_dist, dist_between);
+	int *best_tour;
+	best_tour=two_opt(solution, j, k,total_dist, dist_between);
+	printf("Best Tour:");
+	for(int j=0; j<count; j++)
+	{
+		printf("%d\t", best_tour[j]);
+	}
+	printf("\n");
 
 	gettimeofday(&end, NULL);  //stops the time clock for algorithm 
 	timeval_subtract(&result, &end, &start);  //measures the difference in time
