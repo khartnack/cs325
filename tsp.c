@@ -71,10 +71,14 @@ int *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n]
 			}
 			w=0;
 			new_total_dist = 0;
-			for(int p=0; p+1<m; p++)
+			for(int p=0; p<m; p++)  //should it be p+1
 			{
 				w= new_tour[p];
-				z= new_tour[p+1];
+				
+				if(p==(m-1))
+					z=new_tour[0];
+				else
+					z= new_tour[p+1];	
 				new_dist=calc_distance(city_array[w].x, city_array[w].y, city_array[z].x, city_array[z].y);
 				new_total_dist = new_total_dist + new_dist;
 			}
@@ -250,8 +254,3 @@ int calc_distance(int ax, int ay, int bx, int by)
 	dist =  sqrt((ax-bx)*(ax - bx) + (ay - by)*(ay-by));
 	return dist;
 }
-
-
-
-
-
