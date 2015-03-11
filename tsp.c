@@ -88,11 +88,11 @@ void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n
 			if(new_total_dist<best_dist)
 			{
 				best_dist = new_total_dist;
-				fprintf(outfp,"%d\n", best_dist);
+				//fprintf(outfp,"%d\n", best_dist);
 				for(int p=0; p<m; p++)
 				{
 					best_tour[p]=new_tour[p];
-					fprintf(outfp,"%d\n", best_tour[p]);
+					//fprintf(outfp,"%d\n", best_tour[p]);
 				}
 				
 			}	
@@ -101,7 +101,14 @@ void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n
 		
 
 	}
-	printf("\nMatrix: for Debugging\n");
+	fprintf(outfp,"%d\n", best_dist);
+	for(int p=0; p<m; p++)
+	{
+		fprintf(outfp,"%d\n", best_tour[p]);
+	}
+
+
+	/*printf("\nMatrix: for Debugging\n");
 	for(k=0;k<n; k++)	
 	{
 		for (j=0; j<m; j++)
@@ -110,7 +117,7 @@ void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n
 			if(j==(m-1))
 				printf("\n");
 		}
-	}
+	}*/
 	return 0;
 }
 
@@ -155,7 +162,7 @@ int main(int argc, char **argv)
 	int count = 0;
 	int k=0;
 	int city_dist;
-	static int dist_between[7][7];
+	static int dist_between[280][280];
 	/*int x, y;
 	for(x = 0; x < 2000; x++) 
 	{
