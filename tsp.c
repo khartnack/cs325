@@ -31,7 +31,7 @@ struct city {
 	int city_id;
 	int x;
 	int y;
-}city_array[2000];
+}city_array[20000];
 
 static FILE *outfp;
 
@@ -43,7 +43,7 @@ void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n
 {
 	int i=0;
 	int k=0;
-	int j=0;
+	//int j=0;
 	int w=0;
 	int z=0;
 	int best_dist = total_dist;
@@ -142,10 +142,10 @@ int main(int argc, char **argv)
 	int z;
 	int count = 0;
 	int k=0;
-	int city_dist;
+	//int city_dist;
 	//static int dist_between[280][280];
 	int total_dist = 0;
-	int solution[2000];
+	int solution[20000];
 	//changes the outfile name so that it has filenamechange.txt
 	for(z=0; z<(len); z++)
 	{
