@@ -38,10 +38,60 @@ int calc_distance(int ax, int ay, int bx, int by);
 //http://www.seas.gwu.edu/~simhaweb/champalg/tsp/tsp.html  reference for 2-OPT implementation
 void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n][m])
 {
-	int j=0;
+	int i=0;
 	int k=0;
-//	int noChange = 0;
-	int old_tour = total_dist;
+	int j=0;
+	int w=0;
+	int z=0;
+	int noChange = 0;
+	int best_dist = total_dist;
+	int new_dist = 0; 
+	int new_tour[m];
+	int swap=0;
+	for(i=0;i<m-1; i++)	
+	{
+		for (k=i+1; k<m; k++)
+		{
+			int c;
+			for(c=0; c<=(i-1); ++c)
+			{
+				new_tour[c]=city_tour[c];		
+			}
+			int rev = 0;
+			for(c = i; c <= k; ++c)
+			{
+				new_tour[c]=city_tour[k-rev];
+				rev++;
+			}
+			for (c=(k+1); c< m; ++c)
+			{
+				new_tour[c]=city_tour[c];
+			}
+			w=0;
+			for(int p=0; p<m; p++)
+			{
+				printf("new tour: %d\n", new_tour[p]);
+				//w= new_tour[p];
+				//z= new_tour[p+1];
+				//new_dist=calc_distance(city_array[w].x, city_array[w].y, city_array[z].x, city_array[z].y);
+				//printf("w z new dist: %d %d %d\n", w, z, new_dist);
+			}
+			
+			//new_dist=calc_distance(city_array[w].x, city_array[w].y, city_array[z].x, city_array[z].y);
+			printf("w z new dist: %d %d %d\n", w, z, new_dist);
+		}
+		
+
+	}
+
+	
+	for(i=0; i<m; i++)
+	{
+		printf("city tour: %d\t%d\n", city_tour[i], new_tour[i]);
+
+	}
+
+
 	for(k=0;k<n; k++)	
 	{
 		for (j=0; j<m; j++)
@@ -54,7 +104,21 @@ void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n
 	return 0;
 }
 
-
+/*  Pseudo code for 2 opt
+    1.   T = some starting tour
+    2.   noChange = true
+    3.   repeat
+    4.      for all possible edge-pairs in T
+    5.         T' = tour by swapping end points in edge-pair
+    6.         if T' < T
+    7.             T = T'
+    8.             noChange = false
+    9.             break      // Quit loop as soon as an improvement is found
+    10.        endif
+    11.     endfor
+    12.  until noChange
+    13.  return T
+*/
 
 void timeval_subtract (result, x, y)
      struct timeval *result, *x, *y;
@@ -96,13 +160,13 @@ int main(int argc, char **argv)
 	int count = 0;
 	int k=0;
 	int city_dist;
-	static int dist_between[7][7]; //will need to use malloc to allocate data for matrix
-/*	int x, y;
-	for(x = 0; x < 1500; x++) 
+	static int dist_between[7][7];
+	/*int x, y;
+	for(x = 0; x < 2000; x++) 
 	{
-    		for(y = 0; y < 1500; y++) 
+    		for(y = 0; y < 2000; y++) 
 		{	
-			dist_between[x][y] = 0;
+			dist_between[x][y] = 1;
 		}
 	}*/
 	int total_dist = 0;
@@ -161,6 +225,10 @@ int main(int argc, char **argv)
 		{
 			city_dist=calc_distance(city_array[k].x, city_array[k].y, city_array[j].x, city_array[j].y);
 			dist_between[k][j]=city_dist;
+			if(k==0)
+			{
+				total_dist = total_dist + city_dist;
+			}
 		}
 	}
 
@@ -190,18 +258,4 @@ int calc_distance(int ax, int ay, int bx, int by)
 
 
 
-/*  Pseudo code for 2 opt
-    1.   T = some starting tour
-    2.   noChange = true
-    3.   repeat
-    4.      for all possible edge-pairs in T
-    5.         T' = tour by swapping end points in edge-pair
-    6.         if T' < T
-    7.             T = T'
-    8.             noChange = false
-    9.             break      // Quit loop as soon as an improvement is found
-    10.        endif
-    11.     endfor
-    12.  until noChange
-    13.  return T
-*/
+
