@@ -83,7 +83,8 @@ void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n
 					z=new_tour[0];
 				else
 					z= new_tour[p+1];	
-				new_dist=calc_distance(city_array[w].x, city_array[w].y, city_array[z].x, city_array[z].y);
+				new_dist=dist_matrix[w][z];
+				//new_dist=calc_distance(city_array[w].x, city_array[w].y, city_array[z].x, city_array[z].y);
 				new_total_dist = new_total_dist + new_dist;
 			}
 			
@@ -146,7 +147,7 @@ int main(int argc, char **argv)
 	int count = 0;
 	int k=0;
 	//int city_dist;
-	static int distance[15111][1511];
+	static int distance[280][280];
 	int total_dist = 0;
 	int solution[20000];
 	//changes the outfile name so that it has filenamechange.txt
