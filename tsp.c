@@ -46,6 +46,7 @@ void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n
 	int noChange = 0;
 	int best_dist = total_dist;
 	int new_dist = 0; 
+	int new_total_dist = 0;
 	int new_tour[m];
 	int swap=0;
 	for(i=0;i<m-1; i++)	
@@ -68,17 +69,20 @@ void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n
 				new_tour[c]=city_tour[c];
 			}
 			w=0;
-			for(int p=0; p<m; p++)
+			new_total_dist = 0;
+			for(int p=0; p+1<m; p++)
 			{
 				printf("new tour: %d\n", new_tour[p]);
-				//w= new_tour[p];
-				//z= new_tour[p+1];
-				//new_dist=calc_distance(city_array[w].x, city_array[w].y, city_array[z].x, city_array[z].y);
+				w= new_tour[p];
+				z= new_tour[p+1];
+				new_dist=calc_distance(city_array[w].x, city_array[w].y, city_array[z].x, city_array[z].y);
+				new_total_dist = new_total_dist + new_dist;
 				//printf("w z new dist: %d %d %d\n", w, z, new_dist);
 			}
 			
+
 			//new_dist=calc_distance(city_array[w].x, city_array[w].y, city_array[z].x, city_array[z].y);
-			printf("w z new dist: %d %d %d\n", w, z, new_dist);
+			printf("w z new dist: %d %d %d\n", w, z, new_total_dist);
 		}
 		
 
