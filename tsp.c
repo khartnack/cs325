@@ -42,7 +42,9 @@ int calc_distance(int ax, int ay, int bx, int by);
 //http://www.technical-recipes.com/2012/applying-c-implementations-of-2-opt-to-travelling-salesman-problems/
 //http://www.seas.gwu.edu/~simhaweb/champalg/tsp/tsp.html  reference for 2-OPT implementation
 
-void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n][m])
+
+void *two_opt(int *city_tour,  int m, int n,   int total_dist, int **dist_matrix)
+//void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n][m])
 {
 	int i=0;
 	int k=0;
@@ -147,7 +149,7 @@ int main(int argc, char **argv)
 	int count = 0;
 	int k=0;
 	//int city_dist;
-	static int distance[280][280];
+	//static int distance[280][280];
 	int total_dist = 0;
 	int solution[20000];
 	//changes the outfile name so that it has filenamechange.txt
@@ -195,9 +197,17 @@ int main(int argc, char **argv)
 		}	
 
 	}
-
+	
+	//int i;
 	int j;
+	//int r=count;
+	//int c=count;
+	//int count2;
 	//int distance[count][count];
+
+	int *distance[count];
+	for (k=0; k<count; k++)
+         	distance[k] = (int *)malloc(count * sizeof(int));
 
 	//Calculate the distance for half of the matrix
 	for(j=0;j<count; j++)
