@@ -86,20 +86,18 @@ void *two_opt(int *city_tour,  int m, int n,   int total_dist, int **dist_matrix
 				else
 					z= new_tour[p+1];	
 				new_dist=dist_matrix[w][z];
-				//new_dist=calc_distance(city_array[w].x, city_array[w].y, city_array[z].x, city_array[z].y);
 				new_total_dist = new_total_dist + new_dist;
 			}
-			
 			if(new_total_dist<best_dist)
-			{
-				best_dist = new_total_dist;
-				for(int p=0; p<m; p++)
 				{
-					best_tour[p]=new_tour[p];
-				}
+					best_dist = new_total_dist;
+					for(int p=0; p<m; p++)
+					{
+						city_tour[p]=new_tour[p];
+					}
 				
-			}	
-			
+				}
+						
 		}
 		
 
@@ -107,7 +105,7 @@ void *two_opt(int *city_tour,  int m, int n,   int total_dist, int **dist_matrix
 	fprintf(outfp,"%d\n", best_dist);
 	for(int p=0; p<m; p++)
 	{
-		fprintf(outfp,"%d\n", best_tour[p]);
+		fprintf(outfp,"%d\n", city_tour[p]);
 	}
 	return 0;
 }
