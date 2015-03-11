@@ -33,23 +33,25 @@ struct city {
 	int y;
 }city_array[2000];
 
+static FILE *outfp;
+
 int calc_distance(int ax, int ay, int bx, int by);
 //	two_opt(solution, j, k,total_dist, dist_between);
 //http://www.seas.gwu.edu/~simhaweb/champalg/tsp/tsp.html  reference for 2-OPT implementation
-int *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n][m])
+void *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n][m])
 {
 	int i=0;
 	int k=0;
 	int j=0;
 	int w=0;
 	int z=0;
-	int noChange = 0;
+	//int noChange = 0;
 	int best_dist = total_dist;
 	int new_dist = 0; 
 	int new_total_dist = 0;
 	int new_tour[m];
 	int best_tour[m];
-	int swap=0;
+	//int swap=0;
 	for(i=0;i<m-1; i++)	
 	{
 		for (k=i+1; k<m; k++)
@@ -86,13 +88,13 @@ int *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n]
 			if(new_total_dist<best_dist)
 			{
 				best_dist = new_total_dist;
-				printf("\nBest Tour\n");
+				fprintf(outfp,"%d\n", best_dist);
 				for(int p=0; p<m; p++)
 				{
 					best_tour[p]=new_tour[p];
-					printf("%d\t", best_tour[p]);
+					fprintf(outfp,"%d\n", best_tour[p]);
 				}
-				printf("\n  Distance: %d", best_dist);
+				
 			}	
 			
 		}
@@ -109,7 +111,7 @@ int *two_opt(int *city_tour,  int m, int n,   int total_dist, int dist_matrix[n]
 				printf("\n");
 		}
 	}
-	return best_tour;
+	return 0;
 }
 
 
@@ -144,7 +146,7 @@ int main(int argc, char **argv)
 	//char c; //used to get characters out of input file
 	//char ch; //holds comma
 	FILE *fp; //input file that is opened to read
-	FILE *outfp;  //holds output file that is opened to write to
+	//FILE *outfp;  //holds output file that is opened to write to
 	char *filename = argv[1];  //holds input file name provided by command line
 	char outfilename[255];  //holds output file that is created by filenamechange.txt
 	int len = strlen(filename);  //length of filename
@@ -227,30 +229,28 @@ int main(int argc, char **argv)
 
 	j=count;
 	k=count;
-	int *best_tour;
-	best_tour=two_opt(solution, j, k,total_dist, dist_between);
-	printf("Best Tour:");
-	for(int j=0; j<count; j++)
-	{
-		printf("%d\t", best_tour[j]);
-	}
-	printf("\n");
-
+	//int *best_tour;
+	two_opt(solution, j, k,total_dist, dist_between);
 	gettimeofday(&end, NULL);  //stops the time clock for algorithm 
 	timeval_subtract(&result, &end, &start);  //measures the difference in time
 	//printf(" %ld.%06ld\n",result.tv_sec, result.tv_usec);  //prints to screen the time results
 	printf("%d\n", total_dist);
-	fprintf(outfp, "%d\n", total_dist);
+	/*fprintf(outfp, "%d\n", total_dist);
 	for(k=0;k<count; k++)	
 		{
 		    fprintf(outfp, "%d\n", k);
-		}
+		}*/
 
 }
 
 int calc_distance(int ax, int ay, int bx, int by)
 {
 	int dist;
-	dist =  sqrt((ax-bx)*(ax - bx) + (ay - by)*(ay-by));
+	dist =  round(sqrt((ax-bx)*(ax - bx) + (ay - by)*(ay-by)));
 	return dist;
 }
+
+
+
+
+
