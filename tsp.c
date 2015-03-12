@@ -23,9 +23,6 @@ Project 4
 #include <math.h>     
 #include <limits.h>
 
-//reference: http://cboard.cprogramming.com/c-programming/63552-read-numbers-file.html
-//http://stackoverflow.com/questions/6074279/how-to-use-fprintf-for-writing-data-to-a-file
-//http://stackoverflow.com/questions/10709804/read-comma-separated-numbers-from-a-file-in-c
 
 struct city {
 	int city_id;
@@ -35,32 +32,44 @@ struct city {
 
 static FILE *outfp;
 
-int calc_distance(int ax, int ay, int bx, int by);
+//calculates the distance between any two cities.  
+//input is city 1's x coordinate, city 1's y coordinate, city 2's x coordinate, city 2's y coordinate
+//the distance between the 2 points is returned
+int calc_distance(int ax, int ay, int bx, int by)
+{
+	int dist;
+	dist =  round(sqrt((ax-bx)*(ax - bx) + (ay - by)*(ay-by)));
+	return dist;
+}
 
 //references for 2 opt implementation
 //http://en.wikipedia.org/wiki/2-opt
 //http://www.technical-recipes.com/2012/applying-c-implementations-of-2-opt-to-travelling-salesman-problems/
 //http://www.seas.gwu.edu/~simhaweb/champalg/tsp/tsp.html  reference for 2-OPT implementation
-
+//Function performs a 2 opt optimization of a tour
+//Inputs are the existing tour, # of columns in dist_matrix, # of rows in dist_matrix, the total distance of existing tour, and a 2D 
+//array holding all of the distances between the 2 cities
 void *two_opt(int *city_tour,  int m, int n,   int total_dist, int **dist_matrix)
 {
 	int i=0;
 	int k=0;
 	int w=0;
 	int z=0;
-	int best_dist = total_dist;
-	int new_dist = 0; 
-	int new_total_dist = 0;
-	int new_tour[m];
+	int best_dist = total_dist;  //initial distance of tour becomes the current best tour distance
+	int new_dist = 0;  //holds distance between 2 cities
+	int new_total_dist = 0;  //holds a new distance of tour resulting from swap in 2 opt
+	int new_tour[m]; //array holding the current tour from the 2-opt swap
 	for(i=0;i<m-1; i++)	
 	{
 		for (k=i+1; k<m; k++)
 		{
+			//2 opt swap 
 			int c;
 			for(c=0; c<=(i-1); ++c)
 			{
 				new_tour[c]=city_tour[c];		
 			}
+			//where the swap occurs
 			int rev = 0;
 			for(c = i; c <= k; ++c)
 			{
@@ -73,10 +82,10 @@ void *two_opt(int *city_tour,  int m, int n,   int total_dist, int **dist_matrix
 			}
 			w=0;
 			new_total_dist = 0;
-			for(int p=0; p<m; p++)  //should it be p+1
+			//calculates the distance of the new tour with the swap
+			for(int p=0; p<m; p++)  
 			{
 				w= new_tour[p];
-				
 				if(p==(m-1))
 					z=new_tour[0];
 				else
@@ -84,20 +93,19 @@ void *two_opt(int *city_tour,  int m, int n,   int total_dist, int **dist_matrix
 				new_dist=dist_matrix[w][z];
 				new_total_dist = new_total_dist + new_dist;
 			}
+			//if the swap is better, then the new tour becomes the more optimal tour
 			if(new_total_dist<best_dist)
 				{
 					best_dist = new_total_dist;
 					for(int p=0; p<m; p++)
 					{
-						city_tour[p]=new_tour[p];
+						city_tour[p]=new_tour[p];  //tried memcpy, but saw no improvement on 2k
 					}
 				
-				}
-						
+				}			
 		}
-		
-
 	}
+	//prints the result of the optimization to the filename.tour file
 	fprintf(outfp,"%d\n", best_dist);
 	for(int p=0; p<m; p++)
 	{
@@ -106,7 +114,8 @@ void *two_opt(int *city_tour,  int m, int n,   int total_dist, int **dist_matrix
 	return 0;
 }
 
-
+// From http://www.gnu.org/software/libc/manual/html_node/Elapsed-Time.html
+// Used to substract two timeval structs
 void timeval_subtract (result, x, y)
      struct timeval *result, *x, *y;
 {
@@ -143,7 +152,7 @@ int main(int argc, char **argv)
 	int k=0;
 	int total_dist = 0;
 	int solution[20000];
-	//changes the outfile name so that it has filenamechange.txt
+	//changes the outfile name so that it has filename.txt.tour
 	for(z=0; z<(len); z++)
 	{
 		outfilename[z]=filename[z];
@@ -172,7 +181,8 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		while(fscanf(fp,"%d %d %d", &new_city.city_id, &new_city.x, &new_city.y)==3)
+		 //copies the input file data into an array
+		while(fscanf(fp,"%d %d %d", &new_city.city_id, &new_city.x, &new_city.y)==3) 
 		{
 			city_array[k].city_id=new_city.city_id;
 			city_array[k].x=new_city.x;
@@ -184,7 +194,7 @@ int main(int argc, char **argv)
 		for(k=0;k<count; k++)	
 		{
 		    solution[k]=k;
-		    printf("%d %d %d\n", city_array[k].city_id, city_array[k].x, city_array[k].y);
+		    //printf("%d %d %d\n", city_array[k].city_id, city_array[k].x, city_array[k].y);
 		}	
 
 	}
@@ -223,19 +233,14 @@ int main(int argc, char **argv)
 	total_dist=INT_MAX;	
 	j=count;
 	k=count;
-	two_opt(solution, j, k,total_dist, distance);
+	two_opt(solution, j, k,total_dist, distance);  //calls 2-OPT algo
 	gettimeofday(&end, NULL);  //stops the time clock for algorithm 
 	timeval_subtract(&result, &end, &start);  //measures the difference in time
 	printf(" %ld.%06ld\n",result.tv_sec, result.tv_usec);  //prints to screen the time results
 	
 }
 
-int calc_distance(int ax, int ay, int bx, int by)
-{
-	int dist;
-	dist =  round(sqrt((ax-bx)*(ax - bx) + (ay - by)*(ay-by)));
-	return dist;
-}
+
 
 
 
