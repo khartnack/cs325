@@ -1,4 +1,4 @@
-/*
+ /*
 David Crisman
 Garrett Genz
 Kathleen Beltramini
@@ -31,6 +31,9 @@ struct city {
 }city_array[20000];
 
 static FILE *outfp;
+
+
+void MST(struct city *city_array, int *tour, int n, int **dist_matrix);
 
 //calculates the distance between any two cities.  
 //input is city 1's x coordinate, city 1's y coordinate, city 2's x coordinate, city 2's y coordinate
@@ -191,11 +194,7 @@ int main(int argc, char **argv)
 			count++;			
 		}
 		//just for now, to verify that array is storing data correctly
-		for(k=0;k<count; k++)	
-		{
-		    solution[k]=k;
-		    //printf("%d %d %d\n", city_array[k].city_id, city_array[k].x, city_array[k].y);
-		}	
+
 
 	}
 	
@@ -229,16 +228,75 @@ int main(int argc, char **argv)
 	{
 		distance[k][k] = 0;
 	}
-		
-	total_dist=INT_MAX;	
+
 	j=count;
 	k=count;
+	MST(city_array, solution, count, distance);
+	int m=count;
+	/*for(int p=0; p<m; p++)
+	{
+		printf("%d\n", solution[p]);
+	}*/
+	int w;
+	int q;
+
+	int city_dist;
+	for(int p=0; p<m; p++)  
+	{
+		w= solution[p];
+		if(p==(m-1))
+			q=solution[0];
+		else
+			q= solution[p+1];	
+		city_dist=distance[w][q];
+		total_dist = total_dist + city_dist;
+	}
 	two_opt(solution, j, k,total_dist, distance);  //calls 2-OPT algo
 	gettimeofday(&end, NULL);  //stops the time clock for algorithm 
 	timeval_subtract(&result, &end, &start);  //measures the difference in time
 	printf(" %ld.%06ld\n",result.tv_sec, result.tv_usec);  //prints to screen the time results
 	
 }
+
+void MST(struct city *city_array, int *tour, int n, int **dist_matrix){
+
+ 	int i,j,e = 1,minT = 0,a,b,min = INT_MAX;
+
+ 	int visited[n];
+	for(j=0; j<n; j++)
+	{
+		visited[j]=0;
+	}
+ 	visited[0] = 1;
+ 	tour[0] = city_array[0].city_id;
+ 	while(e < n)
+	{
+      	for(i = 0, min = INT_MAX; i < n; ++i)
+		{
+           		if(visited[i] == 1)
+			{
+                		for(j = 0; j < n; ++j)
+				{
+          	           		if(visited[j] != 1){
+                          			if(dist_matrix[i][j] < min)
+						{
+                               				min = dist_matrix[i][j];
+                               				a = i;
+                               				b = j;
+        	                  		}
+                     		}
+                	}
+           	}
+
+      	}
+      	tour[e] = city_array[b].city_id;
+      	minT += min;
+      	e++;
+      	visited[b] = 1;
+ 	}
+ 	return;
+}
+
 
 
 
